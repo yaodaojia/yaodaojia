@@ -15,9 +15,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void getId() {
+    public void initView() {
 
     }
+
+
 
     @Override
     public void initData() {
