@@ -1,4 +1,4 @@
-package com.example.yaodaojia.yaodaojia.utils.Okhttp;
+package com.example.yaodaojia.yaodaojia.model.http;
 
 import com.google.gson.internal.$Gson$Types;
 
