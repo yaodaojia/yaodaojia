@@ -20,7 +20,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(getLayout(),container,false);
     }
 
     @Override
@@ -48,7 +48,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+//        unbinder.unbind();
     }
 }
 
