@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 
 import com.example.yaodaojia.yaodaojia.R;
 import com.example.yaodaojia.yaodaojia.base.BaseActivity;
+import com.example.yaodaojia.yaodaojia.control.fragment.Artical_Fragment;
 import com.example.yaodaojia.yaodaojia.control.fragment.Home_Fragment;
 import com.example.yaodaojia.yaodaojia.control.fragment.Mine_Fragment;
 import com.example.yaodaojia.yaodaojia.control.fragment.Order_Fragment;
@@ -34,6 +35,8 @@ public class MainActivity extends BaseActivity {
     RadioButton mainMine;
     @BindView(R.id.Main_group)
     RadioGroup MainGroup;
+    @BindView(R.id.main_artical)
+    RadioButton mainArtical;
     private FragmentManager man;
     private FragmentTransaction tra;
 
@@ -53,7 +56,7 @@ public class MainActivity extends BaseActivity {
     public void initData() {
         man = getSupportFragmentManager();
         tra = man.beginTransaction();
-        tra.replace(R.id.main_frame,new Home_Fragment());
+        tra.replace(R.id.main_frame, new Home_Fragment());
         tra.commit();
     }
 
@@ -63,30 +66,38 @@ public class MainActivity extends BaseActivity {
     }
 
 
-
     @OnClick({R.id.main_home, R.id.main_shoppingcart, R.id.main_order, R.id.main_mine})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.main_home:
                 tra = man.beginTransaction();
-                tra.replace(R.id.main_frame,new Home_Fragment());
+                tra.replace(R.id.main_frame, new Home_Fragment());
                 tra.commit();
                 break;
             case R.id.main_shoppingcart:
                 tra = man.beginTransaction();
-                tra.replace(R.id.main_frame,new ShoppingCart_Fragment());
+                tra.replace(R.id.main_frame, new ShoppingCart_Fragment());
                 tra.commit();
                 break;
             case R.id.main_order:
                 tra = man.beginTransaction();
-                tra.replace(R.id.main_frame,new Order_Fragment());
+                tra.replace(R.id.main_frame, new Order_Fragment());
                 tra.commit();
                 break;
             case R.id.main_mine:
                 tra = man.beginTransaction();
-                tra.replace(R.id.main_frame,new Mine_Fragment());
+                tra.replace(R.id.main_frame, new Mine_Fragment());
                 tra.commit();
                 break;
         }
+    }
+
+
+
+    @OnClick(R.id.main_artical)
+    public void onViewClicked() {
+        tra = man.beginTransaction();
+        tra.replace(R.id.main_frame, new Artical_Fragment());
+        tra.commit();
     }
 }
