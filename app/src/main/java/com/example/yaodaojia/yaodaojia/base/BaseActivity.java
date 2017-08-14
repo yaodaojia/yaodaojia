@@ -28,7 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App.activity = this;
-        getLocation();
+//        getLocation();
         setContentView(getLayout());
         ButterKnife.bind(this);
         initView();
@@ -81,5 +81,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onResume();
         App.activity = this;
         initData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

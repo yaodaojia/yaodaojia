@@ -30,12 +30,12 @@ public abstract class BaseFragment extends Fragment {
         unbinder = ButterKnife.bind(this,view);
         initView(view);
         initListener();
+        initData();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        initData();
     }
     //找布局
     public abstract int getLayout();
@@ -49,7 +49,25 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        unbinder.unbind();
+        getLayout();
     }
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(hidden){
+            onHidden();
+        }else {
+            onShow();
+        }
+    }
+    public void onHidden(){
+
+    }
+    public void onShow(){
+
+    }
+
 }
 
