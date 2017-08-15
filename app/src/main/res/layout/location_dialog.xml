@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="地理位置权限"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        />
-    <TextView
-        android:textSize="18dp"
-        android:layout_margin="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="允许http://\nm.yaodaojia360.com/访问你当前的地理位置信息？"
-        />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="确定"
-            android:textSize="17dp"
-            android:textColor="#bb178417"
-            android:layout_alignParentRight="true"
-            android:id="@+id/location_cancel"
-            android:layout_margin="15dp"
-            />
-        <TextView
-            android:textSize="17dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="取消"
-            android:layout_margin="15dp"
-            android:layout_toLeftOf="@id/location_cancel"
-            android:id="@+id/location_sure"
-            />
-    </RelativeLayout>
-</LinearLayout>
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_margin="15dp"
+android:text="地理位置权限"
+android:textStyle="bold"
+android:textSize="20dp"
+    />
+<TextView
+android:textSize="18dp"
+android:layout_margin="15dp"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="允许http://\nm.yaodaojia360.com/访问你当前的地理位置信息？"
+    />
+<RelativeLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="确定"
+    android:textSize="17dp"
+    android:textColor="#bb178417"
+    android:layout_alignParentRight="true"
+    android:id="@+id/location_cancel"
+    android:layout_margin="15dp"
+    />
+<TextView
+    android:textSize="17dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="取消"
+    android:layout_margin="15dp"
+    android:layout_toLeftOf="@id/location_cancel"
+    android:id="@+id/location_sure"
+    />
+</RelativeLayout>
+    </LinearLayout>

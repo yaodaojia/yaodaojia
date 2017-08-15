@@ -29,6 +29,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.android.support:recyclerview-v7:+'
     compile 'com.jakewharton:butterknife:8.5.1'
+    apply plugin: 'eclipse'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile files('libs/AMap3DMap_5.2.1_AMapSearch_5.2.1_AMapLocation_3.5.0_20170731.jar')
+    compile 'com.jakewharton:butterknife:8.8.0'
 }

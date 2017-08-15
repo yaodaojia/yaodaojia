@@ -1,6 +1,5 @@
 package com.example.yaodaojia.yaodaojia.control.activity;
 
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -17,12 +16,9 @@ import com.example.yaodaojia.yaodaojia.control.fragment.Order_Fragment;
 import com.example.yaodaojia.yaodaojia.control.fragment.ShoppingCart_Fragment;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
-
-
     @BindView(R.id.main_frame)
     FrameLayout mainFrame;
     @BindView(R.id.main_home)
@@ -48,10 +44,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
 
-
     }
-
-
     @Override
     public void initData() {
         man = getSupportFragmentManager();

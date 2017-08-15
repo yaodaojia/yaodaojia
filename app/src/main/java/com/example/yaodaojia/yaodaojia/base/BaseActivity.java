@@ -1,11 +1,9 @@
 package com.example.yaodaojia.yaodaojia.base;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -66,7 +64,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         }
     }
-
     //找布局
     public abstract int getLayout();
     //找ID

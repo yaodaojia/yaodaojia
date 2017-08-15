@@ -1,11 +1,8 @@
 package com.example.yaodaojia.yaodaojia.model.http;
-
 import com.google.gson.internal.$Gson$Types;
-
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-
 import okhttp3.Call;
 import okhttp3.Request;
 import okhttp3.Response;

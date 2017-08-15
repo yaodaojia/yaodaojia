@@ -13,7 +13,7 @@ public class ShoppingCart_Fragment extends BaseFragment {
 
     @Override
     public int getLayout() {
-        return R.layout.shoppingcart_fragment;
+        return R.layout.shopcart_frag_empty;
     }
 
     @Override
