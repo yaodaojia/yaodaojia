@@ -32,6 +32,7 @@
             android:drawableTop="@drawable/main_home"
             android:text="首页"
             android:padding="5dp"
+            android:textSize="22px"
             android:drawablePadding="4dp"
             android:textColor="@drawable/main_text" />
         <RadioButton
@@ -44,10 +45,12 @@
             android:gravity="center"
             android:text="分类"
             android:padding="5dp"
+            android:textSize="22px"
             android:drawablePadding="4dp"
             android:drawableTop="@drawable/main_order"
             android:textColor="@drawable/main_text" />
         <RadioButton
+            android:textSize="22px"
             android:id="@+id/main_artical"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -63,6 +66,7 @@
 
             />
         <RadioButton
+            android:textSize="22px"
             android:id="@+id/main_shoppingcart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -79,6 +83,7 @@
 
 
         <RadioButton
+            android:textSize="22px"
             android:id="@+id/main_mine"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

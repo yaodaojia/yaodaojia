@@ -18,11 +18,12 @@
                 android:id="@+id/home_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="20px"
                 android:drawablePadding="4dp"
                 android:drawableRight="@drawable/drop_down"
                 android:padding="5dp"
                 android:text="北京"
+                android:maxLength="2"
                 android:textColor="#999"
                 android:textSize="18sp" />
 
@@ -38,6 +39,7 @@
                 android:background="@drawable/search_home"
                 android:drawableLeft="@drawable/search_img"
                 android:drawablePadding="8dp"
+                android:editable="false"
                 android:gravity="center_vertical"
                 android:hint="搜索药品、医疗器械、保健品"
                 android:padding="8dp"
@@ -46,8 +48,8 @@
 
             <ImageView
                 android:id="@+id/home_msg_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35px"
+                android:layout_height="40px"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="8dp"
                 android:src="@drawable/msg_img" />
@@ -56,7 +58,7 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/home_viewpager"
             android:layout_width="match_parent"
-            android:layout_height="150dp"></android.support.v4.view.ViewPager>
+            android:layout_height="282px"></android.support.v4.view.ViewPager>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -123,25 +125,26 @@
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="13dp"
-            android:background="#d9d8d8"
+            android:layout_height="10px"
+            android:background="#f4f4f4"
             />
         <LinearLayout
+            android:background="#fff"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="2">
+            android:weightSum="2.5">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1.45">
 
                 <TextView
                     android:id="@+id/home_tehui"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="限时特惠"
-                    android:textColor="#000"
+                    android:textColor="#333333"
                     android:textSize="15sp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
@@ -176,7 +179,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
                         android:gravity="center_vertical"
                         android:text=":"
                         android:textSize="13sp" />
@@ -195,7 +197,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
                         android:gravity="center_vertical"
                         android:text=":"
                         android:textSize="13sp" />
@@ -223,13 +224,13 @@
             <View
                 android:layout_width="0.1dp"
                 android:layout_height="match_parent"
-                android:background="#d9d8d8"
+                android:background="#e5e5e5"
                 />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.05"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -247,7 +248,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="品牌精选"
-                            android:textColor="#000"
+                            android:textColor="#333"
                             android:textSize="15sp"
                             android:layout_marginLeft="3dp"
                             android:layout_marginRight="3dp"
@@ -258,11 +259,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/home_jingxuan"
-                            android:text="为你的健康保驾护航健康生活指南"
+                            android:text="为你的健康保驾护航\n健康生活指南"
                             android:textSize="13sp"
                             android:id="@+id/textView" />
                     </RelativeLayout>
                     <ImageView
+                        android:layout_marginRight="3px"
+                        android:layout_marginLeft="3px"
+                        android:layout_marginTop="20px"
+                        android:layout_marginBottom="20px"
                         android:id="@+id/home_jingxuan_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -287,7 +292,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="夏季必备"
-                        android:textColor="#000"
+                        android:textColor="#333"
                         android:textSize="15sp"
                         android:layout_margin="3dp"
                         />
@@ -338,7 +343,11 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-
+        <com.amap.api.maps.MapView
+            android:id="@+id/mapView"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.amap.api.maps.MapView>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/home_recycler"
             android:layout_width="match_parent"
