@@ -1,5 +1,41 @@
 <resources>
+    <!-- Android Style -->
+    <style name="MMTitle">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">19dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
 
+    <style name="MMTitleButton">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:minWidth">75dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="MMFooter">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">54dp</item>
+        <item name="android:minHeight">54dp</item>
+    </style>
+
+    <style name="MMBody">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingLeft">18dp</item>
+        <item name="android:paddingRight">18dp</item>
+        <item name="android:paddingTop">26dp</item>
+        <item name="android:paddingBottom">18dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -7,5 +43,35 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="MyCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/recharge_radio</item>
+    </style>
 
+    -<style name="push_style">
+
+    <item name="android:hint">@string/style_hint</item>
+
+    <item name="android:inputType">number</item>
+
+    <item name="android:textSize">14sp</item>
+
+</style>
+
+
+    -<style name="push_alias">
+
+    <item name="android:hint">@string/alias_hint</item>
+
+    <item name="android:textSize">14sp</item>
+
+</style>
+
+
+    -<style name="push_tag">
+
+    <item name="android:hint">@string/tag_hint</item>
+
+    <item name="android:textSize">14sp</item>
+
+</style>
 </resources>

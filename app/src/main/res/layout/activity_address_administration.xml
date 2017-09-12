@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF4F1F1"
+        android:padding="10dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <ImageView
+            android:id="@+id/address_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/bt_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:text="收货地址"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/address_iv_editor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="新增地址"
+            android:textSize="18sp"
+            />
+    </RelativeLayout>
+
+<com.example.yaodaojia.yaodaojia.view.MySmartRefreshLayout
+    android:id="@+id/address_smart"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+<com.example.yaodaojia.yaodaojia.view.swipelist.SwipeMenuListView
+    android:id="@+id/address_lv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+</com.example.yaodaojia.yaodaojia.view.swipelist.SwipeMenuListView>
+</com.example.yaodaojia.yaodaojia.view.MySmartRefreshLayout>
+    </LinearLayout>

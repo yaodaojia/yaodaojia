@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="orange">#ff4200</color>
+    <color name="colorDiscountsTabNotCheck">#333333</color>
+    <color name="colorDiscountsTabCheck">#ff4200</color>
+    <color name="colorDiscountsScope">#ffffff</color>
+    <color name="colorDiscountsBule">#2866c8</color>
+    <color name="colorDiscountsoOrange">#bd6932</color>
 </resources>

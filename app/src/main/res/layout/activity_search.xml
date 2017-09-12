@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#fff"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/activity_search_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/home_return"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            />
+        <com.example.yaodaojia.yaodaojia.view.MyEditTexts
+            android:id="@+id/activity_search_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/home_search_delete"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:background="@drawable/search_home"
+            android:drawableLeft="@drawable/search_img"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:hint="搜索药品、医疗器械、保健品"
+            android:textColorHint="#a5a5a5"
+            android:textSize="13sp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="#cdcdcd"
+        />
+    <com.example.yaodaojia.yaodaojia.view.MySmartRefreshLayout
+        android:id="@+id/activity_search_smart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_search_recycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+    </com.example.yaodaojia.yaodaojia.view.MySmartRefreshLayout>
+</LinearLayout>

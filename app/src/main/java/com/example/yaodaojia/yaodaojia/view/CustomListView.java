@@ -1,0 +1,175 @@
+package com.example.yaodaojia.yaodaojia.view;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+
+import com.example.yaodaojia.yaodaojia.R;
+
+
+/**
+ * /**
+ * 项目名称: 血压卫士
+ * 类描述:
+ * 创建人: XI
+ * 创建时间: 2017/6/15 0015 21:29
+ * 修改人:
+ * 修改内容:
+ * 修改时间:
+ * #                                                   #
+ * #                       _oo0oo_                     #
+ * #                      o8888888o                    #
+ * #                      88" . "88                    #
+ * #                      (| -_- |)                    #
+ * #                      0\  =  /0                    #
+ * #                    ___/`---'\___                  #
+ * #                  .' \\|     |# '.                 #
+ * #                 / \\|||  :  |||# \                #
+ * #                / _||||| -:- |||||- \              #
+ * #               |   | \\\  -  #/ |   |              #
+ * #               | \_|  ''\---/''  |_/ |             #
+ * #               \  .-\__  '-'  ___/-. /             #
+ * #             ___'. .'  /--.--\  `. .'___           #
+ * #          ."" '<  `.___\_<|>_/___.' >' "".         #
+ * #         | | :  `- \`.;`\ _ /`;.`/ - ` : | |       #
+ * #         \  \ `_.   \_ __\ /__ _/   .-` /  /       #
+ * #     =====`-.____`.___ \_____/___.-`___.-'=====    #
+ * #                       `=---='                     #
+ * #     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   #
+ * #                                                   #
+ * #               佛祖保佑         永无BUG              #
+ * #                                                   #
+ */
+
+
+public class CustomListView extends ListView implements View.OnTouchListener, GestureDetector.OnGestureListener {
+    // 手势动作探测器
+    private GestureDetector mGestureDetector;
+
+    // 删除事件监听器
+    public interface OnDeleteListener {
+        void onDelete(int index);
+    }
+
+    private OnDeleteListener mOnDeleteListener;
+
+    // 删除按钮
+    private View mDeleteBtn;
+
+    // 列表项布局
+    private ViewGroup mItemLayout;
+
+    // 选择的列表项
+    private int mSelectedItem;
+
+    // 当前删除按钮是否显示出来了
+    private boolean isDeleteShown;
+
+    public CustomListView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        // 创建手势监听器对象
+        mGestureDetector = new GestureDetector(getContext(), this);
+        // 监听onTouch事件
+        setOnTouchListener(this);
+    }
+
+    // 设置删除监听事件
+    public void setOnDeleteListener(OnDeleteListener listener) {
+        mOnDeleteListener = listener;
+    }
+
+    public CustomListView(Context context) {
+        super(context);
+    }
+
+    public CustomListView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    // 触摸监听事件
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (isDeleteShown) {
+            hideDelete();
+            return false;
+        } else {
+            return mGestureDetector.onTouchEvent(event);
+        }
+
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+        if (!isDeleteShown) {
+                         mSelectedItem = pointToPosition((int) e.getX(), (int) e.getY());
+                     }
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+    // 隐藏删除按钮
+         public void hideDelete() {
+                 mItemLayout.removeView(mDeleteBtn);
+                 mDeleteBtn = null;
+                 isDeleteShown = false;
+             }
+
+                 public boolean isDeleteShown() {
+                 return isDeleteShown;
+             }
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        // 如果当前删除按钮没有显示出来，并且x方向滑动的速度大于y方向的滑动速度
+                 if (!isDeleteShown && Math.abs(velocityX) > Math.abs(velocityY)) {
+                         mDeleteBtn = LayoutInflater.from(getContext()).inflate(
+                                        R.layout.delete_btn, null);
+                         mDeleteBtn.setOnClickListener(new OnClickListener() {
+
+                                        @Override
+                                 public void onClick(View v) {
+                                         mItemLayout.removeView(mDeleteBtn);
+                                         mDeleteBtn = null;
+                                         isDeleteShown = false;
+                                         mOnDeleteListener.onDelete(mSelectedItem);
+                                     }
+                             });
+
+                         mItemLayout = (ViewGroup) getChildAt(mSelectedItem
+                                         - getFirstVisiblePosition());
+
+                         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                                         LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                         params.addRule(RelativeLayout.CENTER_VERTICAL);
+
+                        mItemLayout.addView(mDeleteBtn, params);
+                         isDeleteShown = true;
+                    }
+
+                 return false;
+    }
+}

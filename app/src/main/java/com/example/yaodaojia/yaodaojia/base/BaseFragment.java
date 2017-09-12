@@ -3,9 +3,11 @@ package com.example.yaodaojia.yaodaojia.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -16,6 +18,13 @@ import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
     private Unbinder unbinder;
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,15 +36,23 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //透明状态栏
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        //透明导航栏
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         unbinder = ButterKnife.bind(this,view);
-        initView(view);
+        initView(getView());
         initListener();
-        initData();
+        Log.d("BaseFragment", "onViewCreated");
     }
+
 
     @Override
     public void onResume() {
         super.onResume();
+        initData();
+        Log.d("BaseFragment", "onResume");
     }
     //找布局
     public abstract int getLayout();
@@ -62,6 +79,7 @@ public abstract class BaseFragment extends Fragment {
             onShow();
         }
     }
+
     public void onHidden(){
 
     }
@@ -69,5 +87,14 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }
 

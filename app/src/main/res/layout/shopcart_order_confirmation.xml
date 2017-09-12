@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -11,6 +10,8 @@
         android:padding="10dp">
 
         <ImageView
+            android:id="@+id/shopcart_confir_cancel"
+            android:padding="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/bt_back" />
@@ -35,6 +36,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/shopcart_confir_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -50,8 +52,14 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="7"
+            android:layout_weight="5"
             android:text="请选择收货地址"></TextView>
+        <TextView
+            android:id="@+id/shopcart_confir_address_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="呵呵"></TextView>
 
         <ImageView
             android:layout_width="0dp"
@@ -94,6 +102,7 @@
             android:textSize="10sp" />
 
         <TextView
+            android:id="@+id/shopcart_confir_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -107,75 +116,48 @@
         android:layout_height="0.2dp"
         android:background="#FFB4B4B4"></View>
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/shopcart_confir_payfor"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp">
+
+    <ImageView
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp">
+        android:layout_weight="1"
+        android:src="@mipmap/zhifufangshi" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/zhifufangshi" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:text="支付方式"></TextView>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:text="支付方式"></TextView>
+    <TextView
+        android:id="@+id/shopcart_confir_payfor_text"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:paddingBottom="3dp"
+        android:text="微信支付"
+        android:textSize="10sp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center_horizontal"
-            android:paddingBottom="3dp"
-            android:text="微信支付"
-            android:textSize="10sp" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/home_arrow" />
-    </LinearLayout>
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@mipmap/home_arrow" />
+</LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
         android:background="#FFB4B4B4"></View>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/youhui" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:text="优惠券"></TextView>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/home_arrow" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.2dp"
-        android:background="#FFB4B4B4"></View>
+  
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -191,24 +173,29 @@
             android:text="商品预览"></TextView>
 
         <LinearLayout
-            android:layout_margin="10dp"
+            android:id="@+id/shopcart_confir_goods_item"
+            android:background="#f7f7f7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/shopcart_confir_goods_img"
+                android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@mipmap/shop_hg" />
 
             <LinearLayout
+                android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/shopcart_confir_goods_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="3dp"
@@ -216,6 +203,7 @@
                     android:text="葡立 盐酸氨基葡萄糖胶囊" />
 
                 <TextView
+                    android:id="@+id/shopcart_confir_goods_gongxiao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="3dp"
@@ -232,6 +220,7 @@
                     android:paddingTop="3dp">
 
                     <TextView
+                        android:id="@+id/shopcart_confir_goods_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="6"
@@ -239,6 +228,7 @@
                         android:textColor="#FE5F27" />
 
                     <TextView
+                        android:id="@+id/shopcart_confir_goods_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -270,6 +260,7 @@
             android:text="配送费"></TextView>
 
         <TextView
+            android:id="@+id/shopcart_confir_goods_send_money"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -282,6 +273,7 @@
         android:background="#FFB4B4B4"></View>
 
     <LinearLayout
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -296,6 +288,7 @@
             android:text="备注："></TextView>
 
         <EditText
+            android:id="@+id/shopcart_confir_beizhu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
@@ -306,4 +299,24 @@
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
         android:background="#FFB4B4B4"></View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/shopcart_confir_sure"
+            android:layout_width="85dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:background="@mipmap/loginanniu"
+            android:text="提交订单"
+            android:textColor="#fff"
+            />
+    </LinearLayout>
 </LinearLayout>

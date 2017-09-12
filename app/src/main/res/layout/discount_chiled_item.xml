@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_marginTop="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/weishiyong"
+        android:id="@+id/iv_background"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="35dp"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/item_discounts_tag"
+                android:paddingTop="16dp"
+                android:textColor="#ff4200"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                android:textSize="10sp"/>
+
+            <TextView
+                android:id="@+id/item_discounts_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="100"
+                android:textColor="#ff4200"
+                android:textSize="28dp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/item_discounts_full"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="满199元可用"
+            android:textSize="12sp"
+            android:textColor="#ff4200" />
+    </LinearLayout>
+    <TextView
+        android:textColor="#ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="仅可使用感冒类药物商品"
+        android:textSize="10sp"
+        android:id="@+id/item_discounts_scope"
+        android:layout_above="@+id/item_discounts_time"
+        android:layout_alignEnd="@+id/item_discounts_time" />
+
+    <TextView
+        android:id="@+id/item_discounts_time"
+        android:textColor="#ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2017/07/23到期"
+        android:textSize="10sp"
+        android:layout_above="@+id/item_discounts_use"
+        android:layout_alignEnd="@+id/item_discounts_use" />
+    <Button
+        android:id="@+id/item_discounts_use"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@null"
+        android:text="立即使用"
+        android:textColor="#ff4200"
+        android:layout_marginEnd="43dp"
+        android:layout_marginBottom="16dp"
+        android:layout_alignBottom="@+id/iv_background"
+        android:layout_alignEnd="@+id/iv_background" />
+
+</RelativeLayout>

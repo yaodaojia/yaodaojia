@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="8dp"
+    android:background="#fff">
+    <ImageView
+        android:id="@+id/goods_iv"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/weijiazai"/>
+    <LinearLayout
+        android:paddingRight="7dp"
+        android:paddingLeft="7dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/goods_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="[ 北京同仁堂 ]  菊花"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:ellipsize="end"
+            android:singleLine="true"/>
+
+        <TextView
+            android:id="@+id/goods_effect"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="0.9"
+            android:ellipsize="marquee"
+            android:maxLines="2"
+            android:text="源头甄选 清香怡人 甘甜清香 汤色清 雅口感清甜"
+            android:textColor="#666666"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/goods_specification"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="50克/桶"
+            android:textColor="#666666"
+            android:textSize="14sp" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/good_price"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="￥19.00"
+                android:textColor="#ff4200"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

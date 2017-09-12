@@ -1,356 +1,505 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.yaodaojia.yaodaojia.view.MySmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/home_fragment_smart"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#fff">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#fff"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/home_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20px"
-                android:drawablePadding="4dp"
-                android:drawableRight="@drawable/drop_down"
-                android:padding="5dp"
-                android:text="北京"
-                android:maxLength="2"
-                android:textColor="#999"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/home_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/search_home"
-                android:drawableLeft="@drawable/search_img"
-                android:drawablePadding="8dp"
-                android:editable="false"
-                android:gravity="center_vertical"
-                android:hint="搜索药品、医疗器械、保健品"
-                android:padding="8dp"
-                android:textColorHint="#a5a5a5"
-                android:textSize="13sp" />
-
-            <ImageView
-                android:id="@+id/home_msg_img"
-                android:layout_width="35px"
-                android:layout_height="40px"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="8dp"
-                android:src="@drawable/msg_img" />
-        </LinearLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/home_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="282px"></android.support.v4.view.ViewPager>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#fff"
-            android:orientation="horizontal"
-            android:weightSum="5">
-
-            <TextView
-                android:id="@+id/home_OnLine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:drawablePadding="7dp"
-                android:drawableTop="@drawable/online"
-                android:gravity="center"
-                android:text="在线咨询" />
-
-            <TextView
-                android:id="@+id/home_Family"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:drawablePadding="7dp"
-                android:drawableTop="@drawable/family"
-                android:gravity="center"
-                android:text="家庭常备" />
-
-            <TextView
-                android:id="@+id/home_Essentical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:drawablePadding="7dp"
-                android:drawableTop="@drawable/essentical"
-                android:gravity="center"
-                android:text="企业必备" />
-
-            <TextView
-                android:id="@+id/home_Medical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:drawablePadding="7dp"
-                android:drawableTop="@drawable/medical"
-                android:gravity="center"
-                android:text="医疗器械" />
-
-            <TextView
-                android:id="@+id/home_health"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:drawablePadding="7dp"
-                android:drawableTop="@drawable/health"
-                android:gravity="center"
-                android:text="滋补保健" />
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10px"
-            android:background="#f4f4f4"
-            />
-        <LinearLayout
-            android:background="#fff"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="2.5">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.45">
-
-                <TextView
-                    android:id="@+id/home_tehui"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="限时特惠"
-                    android:textColor="#333333"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    />
-
-                <LinearLayout
-                    android:id="@+id/home_tehui_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/home_tehui">
-
-                    <TextView
-
-                        android:id="@+id/home_time_hui"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
-                        android:text="14点场"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/home_time_hour"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
-                        android:background="@drawable/home_time"
-                        android:gravity="center_vertical"
-                        android:padding="3dp"
-                        android:text="00"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text=":"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/home_time_min"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
-                        android:background="@drawable/home_time"
-                        android:gravity="center_vertical"
-                        android:padding="3dp"
-                        android:text="00"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text=":"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/home_time_second"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
-                        android:background="@drawable/home_time"
-                        android:gravity="center_vertical"
-                        android:padding="3dp"
-                        android:text="00"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/home_tehui_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/home_tehui_time" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="0.1dp"
-                android:layout_height="match_parent"
-                android:background="#e5e5e5"
-                />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.05"
-                android:orientation="vertical">
+                android:background="#fff"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/home_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20px"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginTop="20px"
+                    android:drawablePadding="4dp"
+                    android:drawableRight="@drawable/drop_down"
+                    android:maxLength="2"
+                    android:padding="5dp"
+                    android:text="北京"
+                    android:textColor="#999"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/home_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/search_home"
+                    android:drawableLeft="@drawable/search_img"
+                    android:drawablePadding="8dp"
+                    android:editable="false"
+                    android:gravity="center_vertical"
+                    android:hint="搜索药品、医疗器械、保健品"
+                    android:padding="8dp"
+                    android:textColorHint="#a5a5a5"
+                    android:textSize="13sp" />
+
+                <ImageView
+                    android:id="@+id/home_msg_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/msg_img" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/home_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"></android.support.v4.view.ViewPager>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <RadioButton
+                        android:id="@+id/fragment_viewpager_circle_one"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/home_fragment_viewpager"
+                        android:button="@null" />
+
+                    <RadioButton
+                        android:id="@+id/fragment_viewpager_circle_two"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/home_fragment_viewpager"
+                        android:button="@null" />
+
+                    <RadioButton
+                        android:id="@+id/fragment_viewpager_circle_three"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/home_fragment_viewpager"
+                        android:button="@null" />
+
+                    <RadioButton
+                        android:id="@+id/fragment_viewpager_circle_four"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/home_fragment_viewpager"
+                        android:button="@null" />
+                </RadioGroup>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <TextView
+                    android:id="@+id/home_registration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="7dp"
+                    android:drawableTop="@mipmap/home_registration"
+                    android:gravity="center"
+                    android:text="在线挂号" />
+
+                <TextView
+                    android:id="@+id/home_OnLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="7dp"
+                    android:drawableTop="@mipmap/home_online"
+                    android:gravity="center"
+                    android:text="在线咨询" />
+
+                <TextView
+                    android:id="@+id/home_Urgent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="7dp"
+                    android:drawableTop="@mipmap/home_urgent"
+                    android:gravity="center"
+                    android:text="紧急送药" />
+
+                <TextView
+                    android:id="@+id/home_Prescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="7dp"
+                    android:drawableTop="@mipmap/home_prescription"
+                    android:gravity="center"
+                    android:text="处方药" />
+
+                <TextView
+                    android:id="@+id/home_family"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="7dp"
+                    android:drawableTop="@mipmap/home_family"
+                    android:gravity="center"
+                    android:text="家庭常备" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20px"
+                android:background="#efeeee" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="2">
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
                     <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_weight="1">
 
                         <TextView
-                            android:id="@+id/home_jingxuan"
+                            android:id="@+id/home_child_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="品牌精选"
-                            android:textColor="#333"
-                            android:textSize="15sp"
-                            android:layout_marginLeft="3dp"
-                            android:layout_marginRight="3dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignStart="@+id/textView" />
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:text="儿童专区"
+                            android:textColor="#404040"
+                            android:textSize="16dp" />
+
                         <TextView
-                            android:layout_margin="3dp"
+                            android:id="@+id/home_child_content"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/home_jingxuan"
-                            android:text="为你的健康保驾护航\n健康生活指南"
-                            android:textSize="13sp"
-                            android:id="@+id/textView" />
-                    </RelativeLayout>
-                    <ImageView
-                        android:layout_marginRight="3px"
-                        android:layout_marginLeft="3px"
-                        android:layout_marginTop="20px"
-                        android:layout_marginBottom="20px"
-                        android:id="@+id/home_jingxuan_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/jingxuan"
-                        />
-                </LinearLayout>
-                <View
-                    android:background="#d9d8d8"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1dp"/>
-                <LinearLayout
-                    android:weightSum="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/home_bibei"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="夏季必备"
-                        android:textColor="#333"
-                        android:textSize="15sp"
-                        android:layout_margin="3dp"
-                        />
-                    <TextView
-                        android:layout_margin="3dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="帮你选好了"
-                        android:textSize="13sp"
-                        />
-                    <ImageView
-                        android:id="@+id/home_bibei_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
-                </LinearLayout>
-                    <View
-                        android:background="#d9d8d8"
-                        android:layout_width="0.1dp"
-                        android:layout_height="match_parent"/>
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/home_persional"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="个人护理"
-                            android:textColor="#000"
-                            android:textSize="15sp"
-                            android:layout_margin="3dp"
-                            />
-                        <TextView
-                            android:layout_margin="3dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="帮你照顾好自己"
-                            android:textSize="13sp"
-                            />
+                            android:layout_below="@id/home_child_title"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="只为宝宝更好"
+                            android:textColor="#868585" />
+
                         <ImageView
-                            android:id="@+id/home_persional_img"
+                            android:id="@+id/home_child_img"
+                            android:layout_width="90dp"
+                            android:layout_height="60dp"
+                            android:layout_below="@id/home_child_content"
+                            android:layout_centerInParent="true"
+                            android:layout_margin="5dp"
+                            android:src="@mipmap/weijiazai" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="0.1dp"
+                        android:layout_height="match_parent"
+                        android:background="#e1e1e1" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/home_mother_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            />
-                    </LinearLayout>
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:text="辣妈"
+                            android:textColor="#404040"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/home_mother_content"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/home_mother_title"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="帮你选好啦"
+                            android:textColor="#868585" />
+
+                        <ImageView
+                            android:id="@+id/home_mother_img"
+                            android:layout_width="90dp"
+                            android:layout_height="60dp"
+                            android:src="@mipmap/weijiazai"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_below="@+id/home_mother_content"
+                            android:layout_centerHorizontal="true" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="0.1dp"
+                        android:layout_height="match_parent"
+                        android:background="#e1e1e1" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/home_father_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:text="奶爸"
+                            android:textColor="#404040"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/home_father_content"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/home_father_title"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="帮你照顾自己"
+                            android:textColor="#868585" />
+
+                        <ImageView
+                            android:id="@+id/home_father_img"
+                            android:layout_width="90dp"
+                            android:layout_height="60dp"
+                            android:layout_below="@id/home_father_content"
+                            android:layout_centerInParent="true"
+                            android:layout_margin="5dp"
+                            android:src="@mipmap/weijiazai" />
+                    </RelativeLayout>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="#e1e1e1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/home_old_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:text="老人专区"
+                            android:textColor="#404040"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/home_old_content"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/home_old_title"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="父母好才是真的好"
+                            android:textColor="#868585" />
+
+                        <ImageView
+                            android:id="@+id/home_old_img"
+                            android:layout_width="90dp"
+                            android:layout_height="60dp"
+                            android:layout_below="@id/home_old_content"
+                            android:layout_centerInParent="true"
+                            android:layout_margin="5dp"
+                            android:src="@mipmap/weijiazai" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="0.1dp"
+                        android:layout_height="match_parent"
+                        android:background="#e1e1e1" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/home_office_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Office必备"
+                            android:textColor="#404040"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/home_office_content"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/home_office_title"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="帮你选好啦"
+                            android:textColor="#868585" />
+
+                        <ImageView
+                            android:id="@+id/home_office_img"
+                            android:layout_width="90dp"
+                            android:layout_height="60dp"
+                            android:layout_below="@id/home_office_content"
+                            android:layout_centerInParent="true"
+                            android:layout_margin="5dp"
+                            android:src="@mipmap/weijiazai" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="0.1dp"
+                        android:layout_height="match_parent"
+                        android:background="#e1e1e1" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/home_driver_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:text="老司机"
+                            android:textColor="#404040"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/home_driver_content"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/home_driver_title"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="父母好才是真的好"
+                            android:textColor="#868585" />
+
+                        <ImageView
+                            android:id="@+id/home_driver_img"
+                            android:layout_width="90dp"
+                            android:layout_height="60dp"
+                            android:src="@mipmap/weijiazai"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_below="@+id/home_driver_content"
+                            android:layout_centerHorizontal="true" />
+                    </RelativeLayout>
+                </LinearLayout>
+
             </LinearLayout>
+
+            <com.amap.api.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"></com.amap.api.maps.MapView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="#efeeee" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:text="良品推荐" />
+
+                <ImageView
+                    android:id="@+id/home_fragment_goods_more"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/mine_right" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/home_fragment_goods_more"
+                    android:text="更多"
+                    android:textColor="#b6b5b5" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/home_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
         </LinearLayout>
-        <com.amap.api.maps.MapView
-            android:id="@+id/mapView"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.amap.api.maps.MapView>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/home_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</com.example.yaodaojia.yaodaojia.view.MySmartRefreshLayout>

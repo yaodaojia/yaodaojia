@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="#ffffff"
+    android:orientation="horizontal">
+
+    <CheckBox
+        android:id="@+id/shop_checkbox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_weight="0.5"
+        android:button="@null"
+        android:drawableTop="@drawable/selector_check"
+        android:focusable="false"
+        android:paddingTop="18dp" />
+
+    <ImageView
+        android:id="@+id/shop_goodimg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@mipmap/dongchong" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/shop_goodname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="[ 北京同仁堂 ]  菊花"
+            android:textColor="#333333"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/shop_effect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.2"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:maxLines="2"
+            android:ellipsize="marquee"
+            android:text="有助于缓解关节疼痛，增加关节灵活性"
+            android:textColor="#666666"
+            android:textSize="14sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="3dp">
+
+            <TextView
+                android:id="@+id/shop_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥19.00"
+                android:textColor="#ff4200"
+                android:textSize="14sp" />
+            <include
+            android:visibility="visible"
+            layout="@layout/num_item"
+            ></include>
+            <TextView
+                android:id="@+id/shop_num"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="8dp"
+                android:text="X1"
+
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

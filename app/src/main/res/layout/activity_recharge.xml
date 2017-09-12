@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.yaodaojia.yaodaojia.control.activity.recharge.RechargeActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF4F1F1"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@mipmap/bt_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="充值"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="金额："
+            android:textSize="20sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="请输入充值金额"
+            android:textColorHint="#FFB4B4B4" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="#FFB4B4B4"></View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="请选择支付方式："
+        android:textColor="#FFB4B4B4"
+        android:textSize="18sp" />
+        <RadioButton
+            android:id="@+id/rb_weixin"
+            android:padding="10dp"
+            style="@style/MyCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="微信支付"
+            android:drawableLeft="@mipmap/weixin"
+            android:drawablePadding="10dp"
+            android:textColor="#b1b1b1"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp"
+            />
+    <RadioButton
+        android:padding="10dp"
+        style="@style/MyCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="支付宝支付"
+        android:drawableLeft="@mipmap/zhifubao"
+        android:drawablePadding="10dp"
+        android:textColor="#b1b1b1"
+        android:layout_marginLeft="25dp"
+        />
+    <RadioButton
+        android:id="@+id/rb_yinglian"
+        android:padding="10dp"
+        style="@style/MyCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="银联卡支付"
+        android:drawableLeft="@mipmap/weixin"
+        android:drawablePadding="10dp"
+        android:textColor="#b1b1b1"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="25dp"
+        />
+    <Button
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/loginanniu"
+        android:text="支付"
+        android:textColor="#FFF7F6F6"
+        android:textSize="18sp" />
+
+</LinearLayout>
