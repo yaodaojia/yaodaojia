@@ -15,17 +15,17 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.yaodaojia.yaodaojia.R;
 import com.example.yaodaojia.yaodaojia.control.activity.MainActivity;
-import com.example.yaodaojia.yaodaojia.control.activity.mine.AddressAdministration_goods_Activity;
-import com.example.yaodaojia.yaodaojia.control.activity.mine.ModificationAddressActivity;
 import com.example.yaodaojia.yaodaojia.control.activity.shop_car.Shopcart_order_confirmation;
 import com.example.yaodaojia.yaodaojia.model.http.bean.ShoppingCarBean;
 import com.example.yaodaojia.yaodaojia.model.http.http.OkHttp;
+import com.example.yaodaojia.yaodaojia.util.Utils_Host;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -43,15 +43,14 @@ import static com.example.yaodaojia.yaodaojia.R.id.shop_lv_view;
 /**
  * Created by axi on 2017/8/9.
  */
-
 public class ShoppingCart_Fragment extends Fragment implements View.OnClickListener {
     private String shop_bayall_text;
     private CheckBox checkall;
     private TextView allprice;
     private TextView shop_editbutton;
     private ListView shop_listview;
-    private String path = "http://api.googlezh.com/v1/car/carlist";
-    private String mpath = "http://api.googlezh.com/v1/car/update";
+    private String path = Utils_Host.host+"v1/car/carlist";
+    private String mpath = Utils_Host.host+"v1/car/update";
     private ShoppingCarBean shoppingCarBean;
     private boolean flag = false;
     private Button shop_bayall;
@@ -69,6 +68,9 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
     private boolean mType = false;
     private double m1;
     private boolean mflag;
+    private ProgressBar progress;
+    private  TextView jiazai;
+
 
     @Nullable
     @Override
@@ -85,10 +87,8 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-        shop_listview.setEmptyView(empty_view);
         initData();
     }
-
     private void initDelete(int position) {
         Map<String, String> map = new HashMap<>();
         map.put("cart_id", String.valueOf(carBean.get(position).cart_id));
@@ -113,6 +113,8 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
         shop_editbutton = getView().findViewById(R.id.shop_editbutton);
         shop_listview = getView().findViewById(shop_lv_view);
         button = getView().findViewById(R.id.button);
+        progress = getView().findViewById(R.id.progress);
+        jiazai=getView().findViewById(R.id.tv_jiazai);
         checkall.setOnClickListener(this);
         shop_editbutton.setOnClickListener(this);
         shop_bayall.setOnClickListener(this);
@@ -145,13 +147,17 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
         adapter = new shop_lv_adapter(getActivity(), carBean);
         shop_listview.setAdapter(adapter);
         if (carBean.size() != 0) {
+            progress.setVisibility(View.GONE);
             rl_shop.setVisibility(View.VISIBLE);
             empty_view.setVisibility(View.GONE);
             shop_content.setVisibility(View.VISIBLE);
+            jiazai.setVisibility(View.GONE);
         } else {
+            progress.setVisibility(View.GONE);
             rl_shop.setVisibility(View.GONE);
             empty_view.setVisibility(View.VISIBLE);
             shop_content.setVisibility(View.GONE);
+            jiazai.setVisibility(View.GONE);
         }
     }
 
@@ -159,7 +165,7 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.checkall:
-                boolean flag = checkall.isChecked();
+                flag = checkall.isChecked();
                 double f1 = 0;
                 for (int i = 0; i < adapter.getSelect().size(); i++) {
                     adapter.getSelect().set(i, flag);
@@ -228,6 +234,8 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
                         sum = 0.00;
                         allprice.setText("总计:￥" + sum);
                     }
+                    mType = false;
+                    adapter.setItem(mType);
                     allprice.setVisibility(View.VISIBLE);
                     if (shop_bayall_text.equals("删除")) {
                         shop_bayall.setText("结算");
@@ -239,7 +247,8 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
                 if (shop_bayall_text.equals("删除")) {
                     for (int i = 0; i < carBean.size(); i++) {
                         sum = sum - adapter.list.get(i).goods_number * Double.parseDouble(carBean.get(i).market_price);
-                        if (flag = true) {
+                        if (mType = true) {
+                            adapter.setItem(mType);
                             initDelete(i);
                             carBean.remove(i);
                             i--;
@@ -250,10 +259,11 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
                         rl_shop.setVisibility(View.GONE);
                         shop_content.setVisibility(View.GONE);
                         shop_bianji.setVisibility(View.GONE);
+                        progress.setVisibility(View.GONE);
                     }
                     allprice.setText("总计:￥" + sum);
                 } else if (shop_bayall_text.equals("结算")) {
-                     Intent in = new Intent(getContext(), Shopcart_order_confirmation.class);
+                    Intent in = new Intent(getContext(), Shopcart_order_confirmation.class);
                     startActivity(in);
                 }
                 break;
@@ -304,7 +314,7 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
         }
 
         @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, final ViewGroup parent) {
             final ViewHolder vh;
             if (convertView == null) {
                 convertView = convertView.inflate(context, R.layout.shop_lv_item, null);

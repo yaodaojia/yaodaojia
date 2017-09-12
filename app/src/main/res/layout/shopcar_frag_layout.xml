@@ -4,6 +4,23 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical">
+    <ProgressBar
+        android:id="@+id/progress"
+        android:progress="0"
+        android:max="50"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
+    <TextView
+        android:id="@+id/tv_jiazai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加载中"
+        android:textSize="16sp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
     <include
         layout="@layout/shopcart_frag_empty"
         ></include>

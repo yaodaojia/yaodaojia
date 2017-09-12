@@ -9,14 +9,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:drawableLeft="@drawable/smart_load"
+        android:drawableLeft="@drawable/up"
         android:gravity="center_vertical"
-        android:text="@string/srl_keep_pull_up"
+        android:text="向上加载"
         android:textColor="@color/srl_text_color"
         android:textSize="@dimen/srl_text_size" />
 
     <ImageView
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/up"
         android:id="@+id/srl_elv_pull_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

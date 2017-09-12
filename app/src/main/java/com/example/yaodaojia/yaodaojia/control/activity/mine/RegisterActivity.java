@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.example.yaodaojia.yaodaojia.model.http.bean.Register_Bean;
 import com.example.yaodaojia.yaodaojia.model.http.bean.YanZhengBean;
 import com.example.yaodaojia.yaodaojia.model.http.http.OkHttp;
 import com.example.yaodaojia.yaodaojia.util.MyCountDownTime;
+import com.example.yaodaojia.yaodaojia.util.Utils_Host;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -32,6 +34,8 @@ import okhttp3.Request;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.tv_xianyi)
     TextView tvXianyi;
+    @BindView(R.id.iv_register_back)
+    ImageView ivRegisterBack;
     private Button bt_code, bt_register;
     private EditText et_phone, et_password, et_code;
     private String codestr;
@@ -40,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private CheckBox cb_xianyi;
     private MyCountDownTime myCountDownTime;// 用于验证码倒计时
     private Handler mHandler;//用于执行耗时操作
-    private String path = "http://api.googlezh.com/v1/goods/send";
+    private String path = Utils_Host.host + "v1/goods/send";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +140,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Log.d("RegisterActivity", "phone" + map.get("tel"));
         Log.d("RegisterActivity", "password" + map.get("password"));
         Log.d("RegisterActivity", "code" + map.get("code"));
-        OkHttp.postAsync("http://api.googlezh.com/v1/register/register_do", map, new OkHttp.DataCallBack() {
+        OkHttp.postAsync(Utils_Host.host + "v1/register/register_do", map, new OkHttp.DataCallBack() {
             @Override
             public void requestFailure(Request request, IOException e) {
 
@@ -219,8 +223,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    @OnClick(R.id.tv_xianyi)
-    public void onViewClicked() {
-        startActivity(new Intent(RegisterActivity.this, WebviewActivity.class));
+    @OnClick({R.id.tv_xianyi,R.id.iv_register_back})
+    public void onViewClicked(View view) {
+        switch (view.getId()){
+            case R.id.tv_xianyi:
+                startActivity(new Intent(RegisterActivity.this, WebviewActivity.class));
+                break;
+            case R.id.iv_register_back:
+                RegisterActivity.this.finish();
+                break;
+        }
+
     }
+
 }

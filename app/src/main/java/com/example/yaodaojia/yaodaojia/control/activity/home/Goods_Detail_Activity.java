@@ -17,12 +17,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.yaodaojia.yaodaojia.R;
 import com.example.yaodaojia.yaodaojia.base.BaseActivity;
+import com.example.yaodaojia.yaodaojia.control.activity.shop_car.Shopcart_order_confirmation;
 import com.example.yaodaojia.yaodaojia.model.http.bean.Goods_Detail_Bean;
 import com.example.yaodaojia.yaodaojia.model.http.http.OkHttp;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -109,6 +109,7 @@ public class Goods_Detail_Activity extends BaseActivity {
                 Log.d("Goods_Detail_Activity", result);
                 Gson gson = new Gson();
                 goods_detail_bean = gson.fromJson(result, Goods_Detail_Bean.class);
+
                 if (goods_detail_bean.getData().getG_name().isEmpty()) {
                     goodsInstructionsName.setText("暂无信息");
                 } else {
@@ -150,8 +151,9 @@ public class Goods_Detail_Activity extends BaseActivity {
                     goodsInstructionsTaboo.setText(String.valueOf(goods_detail_bean.getData().getContra()));
                 }
 
-
             }
+
+
         });
     }
 
@@ -176,6 +178,8 @@ public class Goods_Detail_Activity extends BaseActivity {
                 showDioLog();
                 break;
             case R.id.goods_tv_Now:
+                Intent in = new Intent(Goods_Detail_Activity.this, Shopcart_order_confirmation.class);
+                startActivity(in);
                 break;
         }
     }

@@ -11,13 +11,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -43,6 +41,7 @@ import com.example.yaodaojia.yaodaojia.control.activity.mine.Setting_Activity;
 import com.example.yaodaojia.yaodaojia.model.http.bean.Persional_Bean;
 import com.example.yaodaojia.yaodaojia.model.http.http.OkHttp;
 import com.example.yaodaojia.yaodaojia.util.SDPathUtils;
+import com.example.yaodaojia.yaodaojia.util.Utils_Host;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -143,26 +142,13 @@ public class Mine_Fragment extends BaseFragment {
     public void initView(View view) {
         unbinder = ButterKnife.bind(this,view);
         mSp = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
-
-//        mSp = getActivity().getSharedPreferences("persional_info", Context.MODE_PRIVATE);
-//        editor = mSp.edit();
-//        Glide.with(getContext()).load(mSp.getString("profile", "")).asBitmap().centerCrop().into(new BitmapImageViewTarget(mineImg) {
-//            @Override
-//            protected void setResource(Bitmap resource) {
-//                RoundedBitmapDrawable ciDrawable = RoundedBitmapDrawableFactory.create(getActivity().getResources(), resource);
-//                ciDrawable.setCircular(true);
-//                mineImg.setImageDrawable(ciDrawable);
-//            }
-//        });
-//        mineName.setText(mSp.getString("screen_name", ""));
-
     }
 
     private void initPersional() {
         Map<String, String> map = new HashMap<>();
         map.put("token", mSp.getString("token", ""));
         Log.d("Mine_Fragment", mSp.getString("token", ""));
-        OkHttp.postAsync("http://api.googlezh.com/v1/person/person_do", map, new OkHttp.DataCallBack() {
+        OkHttp.postAsync(Utils_Host.host+"v1/person/person_do", map, new OkHttp.DataCallBack() {
             @Override
             public void requestFailure(Request request, IOException e) {
 

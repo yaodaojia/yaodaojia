@@ -13,9 +13,10 @@
         android:padding="10dp">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:id="@+id/iv_register_back"
+            android:layout_width="25dp"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
+            android:layout_centerVertical="true"
             android:src="@mipmap/bt_back" />
 
         <TextView

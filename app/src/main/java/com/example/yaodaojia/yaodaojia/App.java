@@ -35,6 +35,7 @@ public class App extends Application {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
     }
+
     public static void initImageLoader(Context context) {
 
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
@@ -50,8 +51,5 @@ public class App extends Application {
         return instance;
     }
 
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-    }
+
 }

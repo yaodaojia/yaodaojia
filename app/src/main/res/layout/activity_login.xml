@@ -12,9 +12,9 @@
 
         <ImageView
             android:id="@+id/login_iv_back"
-            android:layout_width="wrap_content"
+            android:layout_width="25dp"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
+            android:layout_centerVertical="true"
             android:src="@mipmap/bt_back" />
 
         <TextView
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="登录"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/login_tv_register"
@@ -30,68 +30,68 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="注册"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
     </RelativeLayout>
 
     <com.example.yaodaojia.yaodaojia.view.MyEditText
         android:id="@+id/login_et_phone"
-        android:singleLine="true"
-        android:maxLength="11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:background="@null"
         android:hint="请输入手机号"
+        android:maxLength="11"
         android:paddingBottom="16dp"
         android:paddingTop="16dp"
+        android:singleLine="true"
         android:textColorHint="#FFC2C2C2"
         android:textSize="16sp" />
 
     <View
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="#FFB4B4B4"></View>
 
     <com.example.yaodaojia.yaodaojia.view.MyEditText
         android:id="@+id/login_et_password"
-        android:singleLine="true"
-        android:password="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="@null"
         android:hint="请输入密码"
         android:paddingBottom="16dp"
         android:paddingTop="16dp"
+        android:password="true"
+        android:singleLine="true"
         android:textColorHint="#FFC2C2C2"
         android:textSize="16sp" />
 
     <View
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="#FFB4B4B4"></View>
 
     <Button
         android:id="@+id/login_bt_denlu"
-        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="登录"
         android:textColor="#FFF7F6F6" />
 
     <RelativeLayout
-        android:paddingTop="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp">
+        android:layout_marginBottom="80dp"
+        android:paddingTop="25dp">
 
         <TextView
             android:id="@+id/login_tv_forgetpassword"
@@ -104,34 +104,33 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginBottom="30dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:src="@mipmap/zuoxian"
+            android:layout_marginLeft="40dp"
             android:paddingTop="8dp"
-            android:layout_marginLeft="40dp"/>
+            android:src="@mipmap/zuoxian" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:layout_centerHorizontal="true"
             android:text="其他方式登录"
-            android:textColor="#999999"
-           />
+            android:textColor="#999999" />
 
         <ImageView
-            android:paddingTop="8dp"
-            android:layout_marginRight="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"
+            android:paddingTop="8dp"
             android:src="@mipmap/youxian" />
     </RelativeLayout>
 
@@ -152,8 +151,8 @@
             android:id="@+id/login_iv_zhifubao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/zhifubao"
-            android:layout_marginLeft="70dp"></ImageView>
+            android:layout_marginLeft="70dp"
+            android:src="@mipmap/zhifubao"></ImageView>
     </LinearLayout>
 
 </LinearLayout>

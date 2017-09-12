@@ -2,7 +2,6 @@ package com.example.yaodaojia.yaodaojia.control.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -46,14 +45,12 @@ public class SubAdapter extends BaseAdapter {
         // TODO Auto-generated method stub
         return position;
     }
-
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
         ViewHolder viewHolder = null;
-        final int location = position;
         if (convertView == null) {
-            convertView = convertView.inflate(context,R.layout.sublist_item, null);
+            convertView =convertView.inflate(context,R.layout.sublist_item, null);
             viewHolder = new ViewHolder();
             viewHolder.goods_name = (TextView) convertView
                     .findViewById(R.id.goods_name);

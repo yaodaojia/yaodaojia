@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.yaodaojia.yaodaojia.R;
@@ -20,7 +19,11 @@ import com.example.yaodaojia.yaodaojia.control.activity.home.Home_Search;
 import com.example.yaodaojia.yaodaojia.control.adapter.MyAdapter;
 import com.example.yaodaojia.yaodaojia.control.adapter.SubAdapter;
 import com.example.yaodaojia.yaodaojia.model.http.bean.MyClassBean;
+import com.example.yaodaojia.yaodaojia.model.http.http.MyCallBack;
 import com.example.yaodaojia.yaodaojia.model.http.http.OkHttp;
+import com.example.yaodaojia.yaodaojia.model.http.http.Parsing;
+import com.example.yaodaojia.yaodaojia.model.http.http.ParsingImple;
+import com.example.yaodaojia.yaodaojia.util.Utils_Host;
 import com.google.gson.Gson;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -47,7 +50,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener{
     private ListView subListView;
     private MyAdapter myAdapter;
     private SubAdapter subAdapter;
-    private String path = "http://api.googlezh.com/v1/goodsstyle/style";
+    private String path = Utils_Host.host+"v1/goodsstyle/style";
     private List<MyClassBean.DataBean.GoodsBean> goods;
     private MyClassBean myClassBean;
     private int id;
@@ -98,17 +101,16 @@ public class Order_Fragment extends Fragment implements View.OnClickListener{
 
     }
     private void initSubAdapter(int id) {
-        OkHttp.getAsync(path + "?cat_id="+id + "&page="+page, new OkHttp.DataCallBack() {
+        Parsing par = new ParsingImple();
+        Map<String,String> map = new HashMap<>();
+        map.put("cat_id",String.valueOf(id));
+        map.put("page",String.valueOf(page));
+        par.gets(path, map, new MyCallBack() {
             @Override
-            public void requestFailure(Request request, IOException e) {
-
-            }
-
-            @Override
-            public void requestSuccess(String result) throws Exception {
-                Log.i("result",result);
+            public void onSuccess(String strSuccess) throws UnsupportedEncodingException {
+                Log.i("result",strSuccess);
                 Gson gson = new Gson();
-                myClassBean = gson.fromJson(result,MyClassBean.class);
+                myClassBean = gson.fromJson(strSuccess,MyClassBean.class);
                 goods = myClassBean.data.goods;
                 if (subAdapter ==null){
                     subAdapter = new SubAdapter(getActivity());
@@ -131,6 +133,12 @@ public class Order_Fragment extends Fragment implements View.OnClickListener{
                 }
                 else
                     subAdapter.setItem(goods);
+
+            }
+
+            @Override
+            public void onError(String strError) {
+
             }
         });
 //        OkHttp.getAsync(path + "?cat_id="+ id+"&page="+page, new OkHttp.DataCallBack() {

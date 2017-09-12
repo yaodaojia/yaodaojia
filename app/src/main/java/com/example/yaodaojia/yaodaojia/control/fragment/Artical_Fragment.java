@@ -10,7 +10,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.view.ViewGroup;
 import com.example.yaodaojia.yaodaojia.R;
+import com.example.yaodaojia.yaodaojia.control.activity.mine.ArticalDetailsActivity;
+import com.example.yaodaojia.yaodaojia.control.adapter.ArticalAdapter;
+import com.example.yaodaojia.yaodaojia.control.listener.RecyclerViewClickListener;
+import com.example.yaodaojia.yaodaojia.model.http.bean.ArticalBean;
+import com.example.yaodaojia.yaodaojia.model.http.http.OkHttp;
+import com.example.yaodaojia.yaodaojia.util.Utils_Host;
+import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Request;
 import com.example.yaodaojia.yaodaojia.control.activity.mine.ArticalDetailsActivity;
 import com.example.yaodaojia.yaodaojia.control.adapter.ArticalAdapter;
 import com.example.yaodaojia.yaodaojia.control.listener.RecyclerViewClickListener;
@@ -31,7 +49,7 @@ import okhttp3.Request;
  */
 public class Artical_Fragment extends Fragment {
     private RecyclerView artical_recy;
-    private String path = "http://api.googlezh.com/v1/article/alist";
+    private String path = Utils_Host.host+"v1/article/alist";
     private RefreshLayout refresh;
     private ArticalAdapter adapter;
     int page = 1;

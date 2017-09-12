@@ -2,6 +2,7 @@ package com.example.yaodaojia.yaodaojia.control.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,7 +47,11 @@ public class WebviewActivity extends AppCompatActivity {
 
     }
     @OnClick(R.id.deal_back)
-    public void onViewClicked() {
-      finish();
+    public void onViewClicked(View view) {
+        switch(view.getId()){
+            case R.id.deal_back:
+                WebviewActivity.this.finish();
+                break;
+        }
     }
 }

@@ -1,10 +1,14 @@
 package com.example.yaodaojia.yaodaojia.control.fragment;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -50,17 +54,15 @@ import com.example.yaodaojia.yaodaojia.model.http.bean.Home_DaoHang_Bean;
 import com.example.yaodaojia.yaodaojia.model.http.bean.Home_Fragment_Goods_Bean;
 import com.example.yaodaojia.yaodaojia.model.http.bean.Home_LunBo;
 import com.example.yaodaojia.yaodaojia.model.http.http.OkHttp;
+import com.example.yaodaojia.yaodaojia.model.http.http.Parsing;
 import com.example.yaodaojia.yaodaojia.view.MySmartRefreshLayout;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -179,8 +181,12 @@ public class Home_Fragment extends BaseFragment implements LocationSource, AMapL
             }
         }
     };
+
     private List<Home_LunBo.DataBean> mLunBoList = new ArrayList<>();
     private boolean boo;
+    private Parsing par;
+    private int page = 1;
+    private int limit=6;
     private List<Home_Fragment_Goods_Bean.DataBean> mGoodsList = new ArrayList<>();
     private Home_Fragment_Goods_Adapter goodsAdapter;
     private StringBuffer buffer;
@@ -194,8 +200,7 @@ public class Home_Fragment extends BaseFragment implements LocationSource, AMapL
     private String dis;
     private double lng;
     private double lat;
-    private int page=1;
-    private int limit=6;
+    private BroadcastReceiver broadcastReceiver;
 
     @Override
     public int getLayout() {
@@ -647,7 +652,6 @@ public class Home_Fragment extends BaseFragment implements LocationSource, AMapL
                     //获取定位信息
                     buffer = new StringBuffer();
                     buffer.append(amapLocation.getCountry() + "" + amapLocation.getProvince() + "" + amapLocation.getCity() + "" + amapLocation.getProvince() + "" + amapLocation.getDistrict() + "" + amapLocation.getStreet() + "" + amapLocation.getStreetNum());
-                    Toast.makeText(getContext(), buffer.toString(), Toast.LENGTH_LONG).show();
                     isFirstLoc = false;
                     province = amapLocation.getProvince();
                     city = amapLocation.getCity();
@@ -746,6 +750,9 @@ public class Home_Fragment extends BaseFragment implements LocationSource, AMapL
         if (null != mLocationClient) {
             mLocationClient.onDestroy();
         }
+        if (broadcastReceiver != null) {
+            getActivity().unregisterReceiver(broadcastReceiver);
+        }
     }
 
 
@@ -836,5 +843,30 @@ public class Home_Fragment extends BaseFragment implements LocationSource, AMapL
     public void onDetach() {
         super.onDetach();
         Log.d("Home_Fragment", "onDetach");
+    }
+    private boolean NetWorkStatus() {
+        boolean netSataus = false;
+        ConnectivityManager cwjManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        cwjManager.getActiveNetworkInfo();
+
+        if (cwjManager.getActiveNetworkInfo() != null) {
+            netSataus = cwjManager.getActiveNetworkInfo().isAvailable();
+        }
+
+        if (!netSataus){
+            AlertDialog.Builder b = new AlertDialog.Builder(getActivity()).setTitle("没有可用的网络").setMessage("是否对网络进行设置？");
+
+            b.setPositiveButton("是", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    Intent wifiSettingsIntent = new Intent("android.settings.WIFI_SETTINGS");
+                    startActivity(wifiSettingsIntent);
+                }
+            }).setNeutralButton("否", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    dialog.cancel();
+                }
+            }).show();
+        }
+        return netSataus;
     }
 }

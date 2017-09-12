@@ -21,13 +21,13 @@ import com.example.yaodaojia.yaodaojia.R;
 import com.example.yaodaojia.yaodaojia.control.activity.MainActivity;
 import com.example.yaodaojia.yaodaojia.model.http.bean.Login_Bean;
 import com.example.yaodaojia.yaodaojia.model.http.http.OkHttp;
+import com.example.yaodaojia.yaodaojia.util.Utils_Host;
 import com.google.gson.Gson;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+        setListener();
         et_phone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -107,12 +108,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
+
+
+    private void setListener() {
+        bt_login.setOnClickListener(this);
+        login_back.setOnClickListener(this);
+        weixin.setOnClickListener(this);
+        zhufubao.setOnClickListener(this);
+        register.setOnClickListener(this);
+        forget_password.setOnClickListener(this);
+    }
+
     private void initView() {
-        mShared = getSharedPreferences("login",MODE_PRIVATE);
+        mShared = getSharedPreferences("login", MODE_PRIVATE);
         mEditor = mShared.edit();
         Intent in = getIntent();
         man = getSupportFragmentManager();
-
         mShareAPI = UMShareAPI.get(this);
         bt_login = (Button) findViewById(R.id.login_bt_denlu);//登录按钮
         login_back = (ImageView) findViewById(R.id.login_iv_back);//登录返回
@@ -124,12 +135,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         register = (TextView) findViewById(R.id.login_tv_register);//注册按钮
         et_phone.setText(in.getStringExtra("mobile"));
         et_password.setText(in.getStringExtra("pwd"));
-        bt_login.setOnClickListener(this);
-        login_back.setOnClickListener(this);
-        weixin.setOnClickListener(this);
-        zhufubao.setOnClickListener(this);
-        register.setOnClickListener(this);
-        forget_password.setOnClickListener(this);
     }
 
 
@@ -142,23 +147,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.login_bt_denlu:
                 if(phone.isEmpty()){
                     Toast.makeText(this, "请输入您的手机号", Toast.LENGTH_SHORT).show();
-                }else if(phone.length()<1&&phone.length()>11){
+                } else if (phone.length() < 1 && phone.length() > 11) {
                     Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
-                }else {
-                        if(password.isEmpty()){
-                            Toast.makeText(this, "请输入您的密码", Toast.LENGTH_SHORT).show();
-                        }else if(password.length()<6&&password.length()>20){
-                            Toast.makeText(this, "密码最少6位 最多20位，请重新输入", Toast.LENGTH_SHORT).show();
-                        }else {
+                } else {
+                    if (password.isEmpty()) {
+                        Toast.makeText(this, "请输入您的密码", Toast.LENGTH_SHORT).show();
+                    } else if (password.length() < 6 && password.length() > 20) {
+                        Toast.makeText(this, "密码最少6位 最多20位，请重新输入", Toast.LENGTH_SHORT).show();
+                    } else {
 
-                                initLogin();
+                        initLogin();
 
 
                     }
                 }
                 break;
             case R.id.login_iv_weixin:
-
                 SHARE_MEDIA platform = SHARE_MEDIA.WEIXIN;
                 mShareAPI.doOauthVerify(this, platform, umAuthListener);
                 mShareAPI = UMShareAPI.get(this);
@@ -178,11 +182,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent_forgetpassword);
                 break;
             case R.id.login_iv_back:
-                finish();
+                LoginActivity.this.finish();
                 break;
             case R.id.login_tv_register:
                 Intent intent_register = new Intent(LoginActivity.this, RegisterActivity.class);
-
                 startActivity(intent_register);
                 break;
 
@@ -195,7 +198,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Map<String,String> map = new HashMap<>();
         map.put("mobile",phone);
         map.put("password",password);
-        OkHttp.postAsync("http://api.googlezh.com/v1/login/login_do", map, new OkHttp.DataCallBack() {
+        OkHttp.postAsync(Utils_Host.host+"v1/login/login_do", map, new OkHttp.DataCallBack() {
             @Override
             public void requestFailure(Request request, IOException e) {
 

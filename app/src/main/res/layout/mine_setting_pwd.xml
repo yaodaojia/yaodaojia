@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:layout_width="wrap_content"
+            android:id="@+id/iv_mine_setting_back"
+            android:layout_width="25dp"
             android:layout_height="wrap_content"
             android:src="@drawable/home_return"
             android:layout_margin="10dp"

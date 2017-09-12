@@ -7,7 +7,7 @@ public class Constants {
 	public static final String packageValue = "Sign=WXPay";
 	public static final String nonceStr = "1101000000140429eb40476f8896f4c9";
 	public static final String timeStamp = "1398746574";
-	public static final String sign = "7FFECB600D7157C5AA49810D2D8F28BC2811827B";
+	public static final String sign = "yaodaojia666yaodaojia888yaojia66";
     public static class ShowMsgActivity{
 		public static final String STitle = "showmsg_title";
 		public static final String SMessage = "showmsg_message";

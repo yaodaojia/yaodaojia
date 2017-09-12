@@ -1,11 +1,14 @@
 package com.example.yaodaojia.yaodaojia.control.activity.mine;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,15 +21,17 @@ import com.example.yaodaojia.yaodaojia.R;
 import com.example.yaodaojia.yaodaojia.control.activity.home.Home_Location;
 import com.example.yaodaojia.yaodaojia.control.adapter.AddressAdapter;
 import com.example.yaodaojia.yaodaojia.model.http.bean.AddressBean;
+import com.example.yaodaojia.yaodaojia.model.http.bean.Register_Bean;
+import com.example.yaodaojia.yaodaojia.model.http.http.MyCallBack;
 import com.example.yaodaojia.yaodaojia.model.http.http.OkHttp;
-import com.example.yaodaojia.yaodaojia.view.MySmartRefreshLayout;
-import com.example.yaodaojia.yaodaojia.view.SwipeListView;
-import com.example.yaodaojia.yaodaojia.view.swipelist.SwipeMenu;
-import com.example.yaodaojia.yaodaojia.view.swipelist.SwipeMenuCreator;
-import com.example.yaodaojia.yaodaojia.view.swipelist.SwipeMenuItem;
-import com.example.yaodaojia.yaodaojia.view.swipelist.SwipeMenuListView;
+import com.example.yaodaojia.yaodaojia.model.http.http.Parsing;
+import com.example.yaodaojia.yaodaojia.model.http.http.ParsingImple;
+import com.example.yaodaojia.yaodaojia.swipelist.SwipeMenu;
+import com.example.yaodaojia.yaodaojia.swipelist.SwipeMenuCreator;
+import com.example.yaodaojia.yaodaojia.swipelist.SwipeMenuItem;
+import com.example.yaodaojia.yaodaojia.swipelist.SwipeMenuListView;
+import com.example.yaodaojia.yaodaojia.util.Utils_Host;
 import com.google.gson.Gson;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -41,9 +46,7 @@ import okhttp3.Request;
 * 地址管理
 * */
 public class AddressAdministrationActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private SwipeMenuListView listview;
-    private List<AddressBean.DataBean> list = new ArrayList<>();
+    private SwipeMenuListView listView;
     private ImageView back;
     private TextView address_tv;
     private static final int MODIFI_ADDRESS = 200;
@@ -52,119 +55,46 @@ public class AddressAdministrationActivity extends AppCompatActivity implements 
     private String name;
     private String phone;
     private String address;
+    private String danyuan;
     private AddressAdapter adapter;
-    private SharedPreferences mShared,mShare;
-    private MySmartRefreshLayout homeFragmentSmart;
+    private SharedPreferences mShared, mShare;
+    private Context context;
+    private List<AddressBean.DataBean> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
         setContentView(R.layout.activity_address_administration);
         initView();
         setListener();
+        initSwipe();
         initData();
-        homeFragmentSmart.setOnRefreshListener(new MySmartRefreshLayout.onRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        initData();
-                        homeFragmentSmart.stopRefresh();
-                    }
-                }).start();
-
-            }
-
-            @Override
-            public void onLoadMore() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        initData();
-                        homeFragmentSmart.stopLoadMore();
-                    }
-                }).start();
-
-            }
-        });
     }
-    private void setListener() {
-        back.setOnClickListener(this);
-        address_tv.setOnClickListener(this);
-//        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//            }
-//        });
-    }
-    private void initView() {
-        mShared = getSharedPreferences("login",MODE_PRIVATE);
-        mShare = getSharedPreferences("location",MODE_PRIVATE);
-        listview = (SwipeMenuListView) findViewById(R.id.address_lv);
-        back = (ImageView) findViewById(R.id.address_back);
-        address_tv = (TextView) findViewById(R.id.address_iv_editor);
-        homeFragmentSmart = (MySmartRefreshLayout) findViewById(R.id.address_smart);
+
+    private void initSwipe() {
         SwipeMenuCreator creator = new SwipeMenuCreator() {
-
             @Override
             public void create(SwipeMenu menu) {
-                SwipeMenuItem openItem = new SwipeMenuItem(AddressAdministrationActivity.this);
-                openItem.setBackground(new ColorDrawable(Color.GREEN));
-                openItem.setWidth(dp2px(90));
-                openItem.setTitle("修改");
-                openItem.setTitleSize(20);
-                openItem.setTitleColor(Color.WHITE);
-                menu.addMenuItem(openItem);
-                SwipeMenuItem deleteItem = new SwipeMenuItem(AddressAdministrationActivity.this);
+                SwipeMenuItem deleteItem = new SwipeMenuItem(context);
                 deleteItem.setBackground(new ColorDrawable(Color.RED));
-                deleteItem.setWidth(dp2px(90));
-                openItem.setTitle("删除");
-                openItem.setTitleSize(20);
-                openItem.setTitleColor(Color.WHITE);
+                deleteItem.setWidth(dp2px(80));
+                deleteItem.setTitle("删除");
+                deleteItem.setTitleColor(Color.WHITE);
+                deleteItem.setTitleSize(20);
                 menu.addMenuItem(deleteItem);
             }
         };
-        listview.setMenuCreator(creator);
-        listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+        listView.setMenuCreator(creator);
+        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu,int index) {
+            public boolean onMenuItemClick(int i, SwipeMenu menu, int index) {
                 //index的值就是在SwipeMenu依次添加SwipeMenuItem顺序值，类似数组的下标。
                 //从0开始，依次是：0、1、2、3...
                 switch (index) {
                     case 0:
-                        Intent intent=new Intent(AddressAdministrationActivity.this,ModificationAddressActivity.class);
-                        intent.putExtra("phone",list.get(index).getMobile());
-                        intent.putExtra("address",list.get(index).getProvince_name()+list.get(index).getCity_name()+list.get(index).getDistrict_name());
-//                mEditor.putString("province", item.getProvinceName());
-//                mEditor.putString("city", item.getCityName());
-//                mEditor.putString("distric", item.getAdName());
-//                map.put("lng", String.valueOf(mShared.getFloat("longitude",0)));
-//                map.put("lat", String.valueOf(mShared.getFloat("latitude",0)));
-                        intent.putExtra("province",list.get(index).getProvince_name());
-                        intent.putExtra("city",list.get(index).getCity_name());
-                        intent.putExtra("distric",list.get(index).getDistrict_name());
-                        intent.putExtra("lat",mShare.getFloat("latitude",0));
-                        intent.putExtra("lng",mShare.getFloat("longitude",0));
-                        intent.putExtra("address_id",list.get(index).getAddress_id()+"");
-                        intent.putExtra("name",list.get(index).getConsignee());
-                        currentModifiyAddressPosion = index;
-                        startActivityForResult(intent,MODIFI_ADDRESS);
-                        break;
+                        initDelete(i);
 
-                    case 1:
-                        Toast.makeText(AddressAdministrationActivity.this, "删除:"+position,Toast.LENGTH_SHORT).show();
                         break;
                 }
 
@@ -174,7 +104,7 @@ public class AddressAdministrationActivity extends AppCompatActivity implements 
             }
         });
         // 监测用户在ListView的SwipeMenu侧滑事件。
-        listview.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+        listView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
 
             @Override
             public void onSwipeStart(int pos) {
@@ -186,12 +116,39 @@ public class AddressAdministrationActivity extends AppCompatActivity implements 
                 Log.d("位置:" + pos, "侧滑结束.");
             }
         });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(AddressAdministrationActivity.this, ModificationAddressActivity.class);
+                intent.putExtra("phone",list.get(i).getMobile()+"");
+                intent.putExtra("address", list.get(i).getProvince_name() + list.get(i).getCity_name() + list.get(i).getDistrict_name()+"");
+                intent.putExtra("province", list.get(i).getProvince_name()+"");
+                intent.putExtra("city", list.get(i).getCity_name()+"");
+                intent.putExtra("distric", list.get(i).getDistrict_name()+"");
+                intent.putExtra("lat", mShare.getFloat("latitude", 0)+"");
+                intent.putExtra("lng", mShare.getFloat("longitude", 0)+"");
+                intent.putExtra("address_id", list.get(i).getAddress_id() + "");
+                intent.putExtra("name", list.get(i).getConsignee()+"");
+                currentModifiyAddressPosion=i;
+                startActivityForResult(intent,MODIFI_ADDRESS);
+            }
+        });
     }
 
-    private void initData() {
-        Map<String,String> map = new HashMap<>();
-        map.put("token",mShared.getString("token",""));
-        OkHttp.postAsync("http://api.googlezh.com//v1/person/alist", map, new OkHttp.DataCallBack() {
+    private void initDelete(final int i) {
+        Map<String, String> map = new HashMap<>();
+        map.put("token", mShared.getString("token", ""));
+        map.put("address_id", list.get(i).getAddress_id() + "");
+        map.put("type", String.valueOf(2));
+        map.put("province_name",list.get(i).getProvince_name()+"");
+        map.put("city_name",list.get(i).getCity_name()+"");
+        map.put("district_name",  list.get(i).getDistrict_name()+"");
+        map.put("consignee", list.get(i).getConsignee()+"");
+        map.put("mobile", list.get(i).getMobile()+"");
+        map.put("is_default", String.valueOf(false));
+        map.put("lng",  mShare.getFloat("longitude", 0)+"");
+        map.put("lat",  mShare.getFloat("latitude", 0)+"");
+        OkHttp.postAsync(Utils_Host.host+"v1/person/upAddress", map, new OkHttp.DataCallBack() {
             @Override
             public void requestFailure(Request request, IOException e) {
 
@@ -199,21 +156,91 @@ public class AddressAdministrationActivity extends AppCompatActivity implements 
 
             @Override
             public void requestSuccess(String result) throws Exception {
-                Log.d("AddressAdministrationAc", result);
                 Gson gson = new Gson();
-                AddressBean addressBean = gson.fromJson(result, AddressBean.class);
-                if(addressBean.isSuccess()){
-                    list.addAll(addressBean.getData());
-                    if(adapter == null){
-                        adapter=new AddressAdapter(AddressAdministrationActivity.this, list);
-                        listview.setAdapter(adapter);
-                    }else {
-                        adapter.getData(list);
-                    }
+                Register_Bean register_bean = gson.fromJson(result, Register_Bean.class);
+                if (register_bean.isSuccess()) {
+//                    showNormalDialog();
+                    list.remove(i);
+                    adapter.notifyDataSetInvalidated();
+                        Toast.makeText(AddressAdministrationActivity.this, register_bean.getData(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AddressAdministrationActivity.this, register_bean.getData(), Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
+    }
+
+    private void showNormalDialog() {
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(this);
+        normalDialog.setMessage("确定要保存吗?");
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(AddressAdministrationActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+        normalDialog.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                        dialog.dismiss();
+                    }
+                });
+        // 显示
+        normalDialog.show();
+    }
+
+    private void setListener() {
+        back.setOnClickListener(this);
+        address_tv.setOnClickListener(this);
+    }
+
+    private void initView() {
+        mShared = getSharedPreferences("login", MODE_PRIVATE);
+        mShare = getSharedPreferences("location", MODE_PRIVATE);
+        listView = (SwipeMenuListView) findViewById(R.id.listView);
+        back = (ImageView) findViewById(R.id.address_back);
+        address_tv = (TextView) findViewById(R.id.address_iv_editor);
+    }
+
+    private void initData() {
+        Parsing par = new ParsingImple();
+        Map<String, String> map = new HashMap<>();
+        map.put("token", mShared.getString("token", ""));
+        par.post(Utils_Host.host+"v1/person/alist", map, new MyCallBack() {
+            @Override
+            public void onSuccess(String strSuccess) throws UnsupportedEncodingException {
+                Log.d("AddressAdministrationAc", strSuccess);
+                Gson gson = new Gson();
+                AddressBean addressBean = gson.fromJson(strSuccess, AddressBean.class);
+                if (addressBean.isSuccess()) {
+                    list = addressBean.getData();
+                    list.addAll(addressBean.getData());
+                    if (adapter == null) {
+                        adapter = new AddressAdapter(AddressAdministrationActivity.this, list);
+                        listView.setAdapter(adapter);
+                    } else {
+                        adapter.getData(list);
+                    }
+                }
+            }
+
+            @Override
+            public void onError(String strError) {
+
+            }
+        });
+
 
     }
 
@@ -224,45 +251,46 @@ public class AddressAdministrationActivity extends AppCompatActivity implements 
                 finish();
                 break;
             case R.id.address_iv_editor:
-                Intent intent=new Intent(AddressAdministrationActivity.this,Home_Location.class);
-//                star|tActivityForResult(intent,NEWMODIFI_ADDRESS);
+                Intent intent = new Intent(AddressAdministrationActivity.this, Home_Location.class);
+                startActivityForResult(intent,NEWMODIFI_ADDRESS);
                 startActivity(intent);
                 break;
             default:
                 break;
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
+        switch (requestCode) {
             case MODIFI_ADDRESS:
-                if (resultCode == Activity.RESULT_OK){
+                if (resultCode == Activity.RESULT_OK) {
                     name = data.getStringExtra("name");
                     phone = data.getStringExtra("phone");
                     address = data.getStringExtra("address");
                     AddressBean.DataBean addressBean = (AddressBean.DataBean) adapter.getItem(currentModifiyAddressPosion);
                     addressBean.setConsignee(name);
                     addressBean.setMobile(phone);
-//                    addressBean.setAddress(address);
+                    addressBean.setCity_name(address);
                     adapter.notifyDataSetInvalidated();
                 }
                 break;
             case NEWMODIFI_ADDRESS:
-//                if (resultCode == Activity.RESULT_OK){
-//                    String newName = data.getStringExtra("newName");
-//                    String newPhoneNum = data.getStringExtra("newPhoneNum");
-//                    String addAddress= data.getStringExtra("addAddress");
-//                    String newAddress = data.getStringExtra("newAddress");
-//                    List<AddressBean.DataBean> mlist=new ArrayList<>();
-//                    AddressBean.DataBean addressBean=new AddressBean.DataBean();
-//                    addressBean.setConsignee(newName);
-//                    addressBean.setMobile(newPhoneNum);
-//                    addressBean.setCity_name(addAddress);
-//                    mlist.add(addressBean);
-//                    adapter.setItem(mlist);
-//                    adapter.notifyDataSetInvalidated();
-//                }
+                if (resultCode == Activity.RESULT_OK) {
+                    String newName = data.getStringExtra("newName");
+                    String newPhoneNum = data.getStringExtra("newPhoneNum");
+                    String addAddress = data.getStringExtra("addAddress");
+                    //String newAddress = data.getStringExtra("newAddress");
+                    List<AddressBean.DataBean> mlist = new ArrayList<>();
+                    AddressBean.DataBean addressBean = new AddressBean.DataBean();
+                    addressBean.setConsignee(newName);
+                    addressBean.setMobile(newPhoneNum);
+                    addressBean.setCity_name(addAddress);
+                    mlist.add(addressBean);
+                    adapter.setItem(mlist);
+                    adapter.notifyDataSetInvalidated();
+                }
                 break;
             default:
                 break;
@@ -273,4 +301,5 @@ public class AddressAdministrationActivity extends AppCompatActivity implements 
         final float scale = this.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
+
 }

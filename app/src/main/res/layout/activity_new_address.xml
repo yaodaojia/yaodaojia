@@ -5,19 +5,20 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.yaodaojia.yaodaojia.control.activity.home.NewAddressActivity">
+    tools:context="com.example.yaodaojia.yaodaojia.control.activity.mine.NewAddressActivity">
 
     <RelativeLayout
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFF4F1F1"
-        android:padding="10dp">
+        >
 
         <ImageView
-            android:padding="5dp"
             android:id="@+id/address_iv_back"
-            android:layout_width="wrap_content"
+            android:layout_width="25dp"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:src="@mipmap/bt_back" />
 
         <TextView

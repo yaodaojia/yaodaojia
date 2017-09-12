@@ -13,6 +13,12 @@ import com.example.yaodaojia.yaodaojia.R;
 import com.example.yaodaojia.yaodaojia.base.BaseActivity;
 import com.example.yaodaojia.yaodaojia.model.http.bean.Register_Bean;
 import com.example.yaodaojia.yaodaojia.model.http.bean.YanZhengBean;
+import com.example.yaodaojia.yaodaojia.model.http.http.MyCallBack;
+import com.example.yaodaojia.yaodaojia.model.http.http.OkHttp;
+import com.example.yaodaojia.yaodaojia.model.http.http.Parsing;
+import com.example.yaodaojia.yaodaojia.model.http.http.ParsingImple;
+import com.example.yaodaojia.yaodaojia.util.MyCountDownTime;
+import com.example.yaodaojia.yaodaojia.util.Utils_Host;
 import com.example.yaodaojia.yaodaojia.model.http.http.OkHttp;
 import com.example.yaodaojia.yaodaojia.util.MyCountDownTime;
 import com.google.gson.Gson;
@@ -43,7 +49,7 @@ public class ForgetPasswordActivity extends BaseActivity {
     Button registerBtLogin;
     private MyCountDownTime myCountDownTime;// 用于验证码倒计时
     private Handler mHandler;//用于执行耗时操作
-    private String path="http://api.googlezh.com/v1/goods/send";
+    private String path= Utils_Host.host+"v1/goods/send";
     private String s;
     private String phone_str;
     private String codestr;
@@ -124,6 +130,7 @@ public class ForgetPasswordActivity extends BaseActivity {
     }
 
     private void initPwd() {
+        Parsing par = new ParsingImple();
         Map<String,String> map = new HashMap<>();
         map.put("mobile",phone_str);
         map.put("code",codestr);
@@ -131,7 +138,7 @@ public class ForgetPasswordActivity extends BaseActivity {
         Log.d("ForgetPasswordActivity", "phone" + phone_str);
         Log.d("ForgetPasswordActivity", "code" + codestr);
         Log.d("ForgetPasswordActivity", "pwd" + trim);
-        OkHttp.postAsync("http://api.googlezh.com/v1/register/register_pwd", map, new OkHttp.DataCallBack() {
+        OkHttp.postAsync(Utils_Host.host+"v1/register/register_pwd", map, new OkHttp.DataCallBack() {
             @Override
             public void requestFailure(Request request, IOException e) {
 
@@ -142,17 +149,18 @@ public class ForgetPasswordActivity extends BaseActivity {
                 Log.d("ForgetPasswordActivity", result);
                 Gson gson = new Gson();
                 Register_Bean register_bean = gson.fromJson(result, Register_Bean.class);
-                if(register_bean.isSuccess()){
+                if (register_bean.isSuccess()) {
                     Toast.makeText(ForgetPasswordActivity.this, register_bean.getData(), Toast.LENGTH_SHORT).show();
-                    Intent in = new Intent(ForgetPasswordActivity.this,LoginActivity.class);
-                    in.putExtra("mobile",phone_str);
-                    in.putExtra("pwd",password_str);
+                    Intent in = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
+                    in.putExtra("mobile", phone_str);
+                    in.putExtra("pwd", password_str);
                     startActivity(in);
                     finish();
-                }else {
+                } else {
                     Toast.makeText(ForgetPasswordActivity.this, register_bean.getData(), Toast.LENGTH_SHORT).show();
                 }
             }
+
         });
     }
 
@@ -217,3 +225,5 @@ public class ForgetPasswordActivity extends BaseActivity {
         }
     }
 }
+
+

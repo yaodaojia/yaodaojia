@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,17 +16,16 @@ import com.example.yaodaojia.yaodaojia.R;
 import com.example.yaodaojia.yaodaojia.base.BaseActivity;
 import com.example.yaodaojia.yaodaojia.model.http.bean.Trading_Record_Bean;
 import com.example.yaodaojia.yaodaojia.model.http.http.OkHttp;
+import com.example.yaodaojia.yaodaojia.util.Utils_Host;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Request;
 
 public class TradingRecordActivity extends BaseActivity {
@@ -34,6 +34,8 @@ public class TradingRecordActivity extends BaseActivity {
     ListView tradingRecordList;
     @BindView(R.id.trading_record_wu)
     TextView tradingRecordWu;
+    @BindView(R.id.iv_trading_record_back)
+    ImageView ivTradingRecordBack;
     private List<Trading_Record_Bean.DataBean> mList = new ArrayList<>();
     private SharedPreferences mShared;
 
@@ -49,7 +51,7 @@ public class TradingRecordActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        OkHttp.getAsync("http://api.googlezh.com/v1/person/trans"+"?token="+mShared.getString("token", ""), new OkHttp.DataCallBack() {
+        OkHttp.getAsync(Utils_Host.host + "v1/person/trans" + "?token=" + mShared.getString("token", ""), new OkHttp.DataCallBack() {
             @Override
             public void requestFailure(Request request, IOException e) {
 
@@ -83,6 +85,11 @@ public class TradingRecordActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.iv_trading_record_back)
+    public void onViewClicked() {
+        TradingRecordActivity.this.finish();
     }
 
     class Trading_Record_Adapter extends BaseAdapter {

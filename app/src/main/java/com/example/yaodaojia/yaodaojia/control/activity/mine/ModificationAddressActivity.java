@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.EditText;
@@ -16,12 +15,13 @@ import com.example.yaodaojia.yaodaojia.R;
 import com.example.yaodaojia.yaodaojia.base.BaseActivity;
 import com.example.yaodaojia.yaodaojia.model.http.bean.Register_Bean;
 import com.example.yaodaojia.yaodaojia.model.http.http.OkHttp;
+import com.example.yaodaojia.yaodaojia.util.Utils_Host;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+
 import butterknife.BindView;
 import okhttp3.Request;
 
@@ -117,7 +117,7 @@ public class ModificationAddressActivity extends BaseActivity implements View.On
         map.put("is_default", String.valueOf(false));
         map.put("lng", String.valueOf(intent.getFloatExtra("lng", 0)));
         map.put("lat", String.valueOf(intent.getFloatExtra("lat", 0)));
-        OkHttp.postAsync("http://api.googlezh.com//v1/person/upAddress", map, new OkHttp.DataCallBack() {
+        OkHttp.postAsync(Utils_Host.host+"v1/person/upAddress", map, new OkHttp.DataCallBack() {
             @Override
             public void requestFailure(Request request, IOException e) {
 

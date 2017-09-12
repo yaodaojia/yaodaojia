@@ -28,6 +28,6 @@ public class MyCountDownTime extends CountDownTimer{
     public void onTick(long arg0) {
         // TODO Auto-generated method stub
         btn.setEnabled(false);
-        btn.setText(arg0 / 1000 + "秒后重新发送");
+        btn.setText(arg0 / 1000 + "s后重试");
     }
 }

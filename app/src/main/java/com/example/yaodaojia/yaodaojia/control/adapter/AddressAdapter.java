@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,8 +57,11 @@ public class AddressAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
         ViewHolder1 holder = null;
+
+        //判断当前视图是否为空
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.address_lv_item,
+            // 按当前所需的样式，确定new的布局
+            convertView = convertView.inflate(mcontext,R.layout.address_lv_item,
                     null);
             holder = new ViewHolder1();
             holder.image_url = convertView.findViewById(R.id.address_iv_head);

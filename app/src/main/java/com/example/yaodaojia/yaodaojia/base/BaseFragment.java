@@ -1,5 +1,5 @@
 package com.example.yaodaojia.yaodaojia.base;
-
+import android.content.BroadcastReceiver;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,19 +11,19 @@ import android.view.WindowManager;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
 /**
  * Created by axi on 2017/8/8.
  */
-
 public abstract class BaseFragment extends Fragment {
     private Unbinder unbinder;
-
-
+    private BroadcastReceiver broadcastReceiver;
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
     }
+
+
+
 
     @Nullable
     @Override

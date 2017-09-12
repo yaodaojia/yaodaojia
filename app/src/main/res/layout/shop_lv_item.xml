@@ -65,7 +65,7 @@
                 android:textColor="#ff4200"
                 android:textSize="14sp" />
             <include
-            android:visibility="visible"
+            android:visibility="gone"
             layout="@layout/num_item"
             ></include>
             <TextView

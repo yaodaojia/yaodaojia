@@ -2,6 +2,7 @@ package com.example.yaodaojia.yaodaojia.base;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -26,7 +28,10 @@ import static com.example.yaodaojia.yaodaojia.App.activity;
  * Created by axi on 2017/8/8.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity{
+    boolean netSataus = false;
+    private BroadcastReceiver broadcastReceiver;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +51,15 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
         initView();
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,getLayout());
+        //判断当前SDK版本号，如果是4.4以上，就是支持沉浸式状态栏的
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        }
+        // 如果在设置完成后需要再次进行操作，可以重写操作代码，在这里不再重写
         initData();
         initListener();
-
     }
 
     private void getLocation() {
@@ -91,17 +102,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     //加载数据
     public abstract void initData();
-
     //监听
     public abstract void initListener();
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         // TODO Auto-generated method stub
         super.onConfigurationChanged(newConfig);
-        Log.v("hdwoicow", " == onConfigurationChanged");
+        Log.v("hdwoicow"," == onConfigurationChanged");
     }
-
     @Override
     protected void onResume() {
         if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
