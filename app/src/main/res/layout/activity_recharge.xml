@@ -14,9 +14,9 @@
 
         <ImageView
             android:id="@+id/iv_recharge_bak"
-            android:layout_centerVertical="true"
             android:layout_width="25dp"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:src="@mipmap/bt_back" />
 
         <TextView
@@ -60,48 +60,41 @@
         android:text="请选择支付方式："
         android:textColor="#FFB4B4B4"
         android:textSize="18sp" />
-        <RadioButton
-            android:id="@+id/rb_weixin"
-            android:padding="10dp"
-            style="@style/MyCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="微信支付"
-            android:drawableLeft="@mipmap/weixin"
-            android:drawablePadding="10dp"
-            android:textColor="#b1b1b1"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="25dp"
-            />
+<RadioGroup
+    android:id="@+id/radioGroup"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <RadioButton
-        android:padding="10dp"
+        android:id="@+id/rb_weixin"
         style="@style/MyCheckBox"
+        android:checked="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="支付宝支付"
-        android:drawableLeft="@mipmap/zhifubao"
-        android:drawablePadding="10dp"
-        android:textColor="#b1b1b1"
         android:layout_marginLeft="25dp"
-        />
-    <RadioButton
-        android:id="@+id/rb_yinglian"
-        android:padding="10dp"
-        style="@style/MyCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="银联卡支付"
+        android:layout_marginTop="10dp"
         android:drawableLeft="@mipmap/weixin"
         android:drawablePadding="10dp"
-        android:textColor="#b1b1b1"
-        android:layout_marginBottom="20dp"
+        android:padding="10dp"
+        android:text="微信支付"
+        android:textColor="#b1b1b1" />
+    <RadioButton
+        android:id="@+id/rb_zhifubao"
+        style="@style/MyCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
-        />
+        android:drawableLeft="@mipmap/zhifubao"
+        android:drawablePadding="10dp"
+        android:padding="10dp"
+        android:text="支付宝支付"
+        android:textColor="#b1b1b1" />
+</RadioGroup>
+
     <Button
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:background="@mipmap/loginanniu"
         android:text="支付"
         android:textColor="#FFF7F6F6"

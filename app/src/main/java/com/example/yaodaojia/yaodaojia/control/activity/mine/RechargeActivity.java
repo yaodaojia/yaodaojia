@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
@@ -28,19 +30,16 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.unionpay.UPPayAssistEx;
-import com.unionpay.uppay.PayActivity;
 
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /*
 * 充值界面
 * */
-public class RechargeActivity extends AppCompatActivity implements IWXAPIEventHandler {
+public class RechargeActivity extends AppCompatActivity implements IWXAPIEventHandler, View.OnClickListener {
     /**
      * 支付宝支付业务：入参app_id
      */
@@ -68,8 +67,8 @@ public class RechargeActivity extends AppCompatActivity implements IWXAPIEventHa
 
     private static final int SDK_PAY_FLAG = 1;
     private static final int SDK_AUTH_FLAG = 2;
-    @BindView(R.id.iv_recharge_bak)
-    ImageView ivRechargeBak;
+    @BindView(R.id.radioGroup)
+    RadioGroup radioGroup;
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -122,14 +121,13 @@ public class RechargeActivity extends AppCompatActivity implements IWXAPIEventHa
 
         ;
     };
-    @BindView(R.id.rb_yinglian)
-    RadioButton rbYinglian;
     String mode = "01";
     String tranNum = "670257093383220381900";
     @BindView(R.id.rb_weixin)
     RadioButton rbWeixin;
     private PayReq req;
     private IWXAPI api;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,24 +137,17 @@ public class RechargeActivity extends AppCompatActivity implements IWXAPIEventHa
         req = new PayReq();
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
         api.handleIntent(getIntent(), this);
-    }
-
-    @OnClick({R.id.rb_yinglian, R.id.rb_weixin,R.id.iv_recharge_bak})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.rb_yinglian:
-                UPPayAssistEx.startPayByJAR(this, PayActivity.class, null, null, tranNum, mode);
-                break;
-            case R.id.rb_weixin:
-                sendPayReq();
-                break;
-            case  R.id.iv_recharge_bak:
-                RechargeActivity.this.finish();
-                break;
-
-        }
-
-
+        back = (ImageView) findViewById(R.id.iv_recharge_bak);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+                if (i == R.id.rb_zhifubao) {
+                    pay();
+                } else if (i == R.id.rb_weixin) {
+                    sendPayReq();
+                }
+            }
+        });
     }
 
     @Override
@@ -178,10 +169,8 @@ public class RechargeActivity extends AppCompatActivity implements IWXAPIEventHa
 
     /**
      * 支付宝支付业务
-     *
-     * @param v
      */
-    public void pay(View v) {
+    public void pay() {
         if (TextUtils.isEmpty(APPID) || (TextUtils.isEmpty(RSA2_PRIVATE) && TextUtils.isEmpty(RSA_PRIVATE))) {
             new AlertDialog.Builder(this).setTitle("警告").setMessage("需要配置APPID | RSA_PRIVATE")
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -259,5 +248,17 @@ public class RechargeActivity extends AppCompatActivity implements IWXAPIEventHa
         PayTask payTask = new PayTask(this);
         String version = payTask.getVersion();
         Toast.makeText(this, version, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_recharge_bak:
+                RechargeActivity.this.finish();
+                break;
+            case R.id.btn_to_weixin:
+                sendPayReq();
+                break;
+        }
     }
 }
