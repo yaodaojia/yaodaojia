@@ -5,7 +5,7 @@ public class CarData {
     private String GoodImage;
     private String  GoodNum;
     private String  GoodEffect;
-    private double GoodPrice;
+    private String GoodPrice;
 
     public String getGoodName() {
         return GoodName;
@@ -39,11 +39,11 @@ public class CarData {
         GoodEffect = goodEffect;
     }
 
-    public double getGoodPrice() {
+    public String getGoodPrice() {
         return GoodPrice;
     }
 
-    public void setGoodPrice(double goodPrice) {
+    public void setGoodPrice(String goodPrice) {
         GoodPrice = goodPrice;
     }
 }

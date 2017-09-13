@@ -49,8 +49,8 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
     private TextView allprice;
     private TextView shop_editbutton;
     private ListView shop_listview;
-    private String path = Utils_Host.host+"v1/car/carlist";
-    private String mpath = Utils_Host.host+"v1/car/update";
+    private String path = Utils_Host.host + "v1/car/carlist";
+    private String mpath = Utils_Host.host + "v1/car/update";
     private ShoppingCarBean shoppingCarBean;
     private boolean flag = false;
     private Button shop_bayall;
@@ -69,7 +69,7 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
     private double m1;
     private boolean mflag;
     private ProgressBar progress;
-    private  TextView jiazai;
+    private TextView jiazai;
 
 
     @Nullable
@@ -89,6 +89,7 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
         initView();
         initData();
     }
+
     private void initDelete(int position) {
         Map<String, String> map = new HashMap<>();
         map.put("cart_id", String.valueOf(carBean.get(position).cart_id));
@@ -114,7 +115,7 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
         shop_listview = getView().findViewById(shop_lv_view);
         button = getView().findViewById(R.id.button);
         progress = getView().findViewById(R.id.progress);
-        jiazai=getView().findViewById(R.id.tv_jiazai);
+        jiazai = getView().findViewById(R.id.tv_jiazai);
         checkall.setOnClickListener(this);
         shop_editbutton.setOnClickListener(this);
         shop_bayall.setOnClickListener(this);
@@ -245,15 +246,17 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
             case R.id.shop_buyall:
                 shop_bayall_text = shop_bayall.getText().toString();
                 if (shop_bayall_text.equals("删除")) {
-                    for (int i = 0; i < carBean.size(); i++) {
-                        sum = sum - adapter.list.get(i).goods_number * Double.parseDouble(carBean.get(i).market_price);
-                        if (mType = true) {
-                            adapter.setItem(mType);
-                            initDelete(i);
-                            carBean.remove(i);
-                            i--;
-                            adapter.notifyDataSetChanged();
+                    if (mType = true) {
+                        List<Boolean> select = adapter.getSelect();
+                        for (int i = 0; i < select.size(); i++) {
+                            if (select.get(i)) {
+                                sum = sum - adapter.list.get(i).goods_number * Double.parseDouble(carBean.get(i).market_price);
+                                initDelete(i);
+                                adapter.list.remove(i);
+                                adapter.getSelect().remove(i);
+                            }
                         }
+                        adapter.notifyDataSetChanged();
                     }
                     if (carBean.size() == 0) {
                         rl_shop.setVisibility(View.GONE);
@@ -264,7 +267,15 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
                     allprice.setText("总计:￥" + sum);
                 } else if (shop_bayall_text.equals("结算")) {
                     Intent in = new Intent(getContext(), Shopcart_order_confirmation.class);
+                    for (int i = 0; i < adapter.list.size(); i++) {
+                        in.putExtra("goods_name", carBean.get(i).goods_name);
+                        in.putExtra("goods_img", carBean.get(i).goods_img);
+                        in.putExtra("goods_price", carBean.get(i).market_price + "");
+                        in.putExtra("goods_num", carBean.get(i).goods_number);
+                        in.putExtra("goods_symptom", carBean.get(i).goods_content);
+                    }
                     startActivity(in);
+
                 }
                 break;
             case R.id.button:
@@ -279,6 +290,7 @@ public class ShoppingCart_Fragment extends Fragment implements View.OnClickListe
         public List<ShoppingCarBean.DataBean> list;
         private LinkedList<Boolean> linkedList = new LinkedList<>();
         private boolean type = false;
+
         public shop_lv_adapter(Context context, List<ShoppingCarBean.DataBean> list) {
             super();
             this.context = context;

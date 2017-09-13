@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.yaodaojia.yaodaojia.R;
 import com.example.yaodaojia.yaodaojia.base.BaseActivity;
+import com.example.yaodaojia.yaodaojia.control.activity.mine.LoginActivity;
 import com.example.yaodaojia.yaodaojia.control.activity.shop_car.Shopcart_order_confirmation;
 import com.example.yaodaojia.yaodaojia.model.http.bean.Goods_Detail_Bean;
 import com.example.yaodaojia.yaodaojia.model.http.http.OkHttp;
@@ -175,14 +176,29 @@ public class Goods_Detail_Activity extends BaseActivity {
                 Goods_Detail_Activity.this.finish();
                 break;
             case R.id.tv_goods_buy://加入购物车
-                showDioLog();
+                if(msp.getString("token", "").isEmpty()){
+                    Intent inm = new Intent(Goods_Detail_Activity.this, LoginActivity.class);
+                    startActivity(inm);
+                }else {
+                    showDioLog();
+                }
                 break;
             case R.id.goods_tv_Now:
-                Intent in = new Intent(Goods_Detail_Activity.this, Shopcart_order_confirmation.class);
-                startActivity(in);
+                if(msp.getString("token", "").isEmpty()){
+                    Intent inm = new Intent(Goods_Detail_Activity.this, LoginActivity.class);
+                    startActivity(inm);
+                }else {
+                    Intent in = new Intent(Goods_Detail_Activity.this,Shopcart_order_confirmation.class);
+                    in.putExtra("goods_name",goods_detail_bean.getData().getG_name());
+                    in.putExtra("goods_img",goods_detail_bean.getData().getImg());
+                    in.putExtra("goods_price",goods_detail_bean.getData().getShop_price()+"");
+                    in.putExtra("goods_num",goods_detail_bean.getData().getG_size());
+                    in.putExtra("goods_symptom",goods_detail_bean.getData().getG_symptom());
+                    startActivity(in);
+                }
                 break;
         }
-    }
+     }
 
     public void showDioLog() {
         View view = this.getLayoutInflater().inflate(

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <RelativeLayout
         android:background="#FFF4F1F1"
@@ -19,27 +20,28 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:background="#fff"
         android:id="@+id/artical_smartRefreshlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:srlAccentColor="@android:color/white"
+        app:srlEnableAutoLoadmore="true"
+        app:srlEnablePreviewInEditMode="true">
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <pl.droidsonroids.gif.GifImageView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#fff">
+            <ImageView
+                android:id="@+id/iv_donghua"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/donghua" />
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:src="@drawable/anim"/>
         </com.scwang.smartrefresh.layout.header.ClassicsHeader>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/artical_recy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-
-        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"></com.scwang.smartrefresh.layout.footer.ClassicsFooter>
+            android:layout_height="fill_parent"></android.support.v7.widget.RecyclerView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

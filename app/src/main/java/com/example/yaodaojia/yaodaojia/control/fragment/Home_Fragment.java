@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -54,7 +55,6 @@ import com.example.yaodaojia.yaodaojia.model.http.bean.Home_DaoHang_Bean;
 import com.example.yaodaojia.yaodaojia.model.http.bean.Home_Fragment_Goods_Bean;
 import com.example.yaodaojia.yaodaojia.model.http.bean.Home_LunBo;
 import com.example.yaodaojia.yaodaojia.model.http.http.OkHttp;
-import com.example.yaodaojia.yaodaojia.model.http.http.Parsing;
 import com.example.yaodaojia.yaodaojia.view.MySmartRefreshLayout;
 import com.google.gson.Gson;
 
@@ -184,7 +184,6 @@ public class Home_Fragment extends BaseFragment implements LocationSource, AMapL
 
     private List<Home_LunBo.DataBean> mLunBoList = new ArrayList<>();
     private boolean boo;
-    private Parsing par;
     private int page = 1;
     private int limit=6;
     private List<Home_Fragment_Goods_Bean.DataBean> mGoodsList = new ArrayList<>();
@@ -311,6 +310,15 @@ public class Home_Fragment extends BaseFragment implements LocationSource, AMapL
 
             }
         });
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                NetWorkStatus();
+            }
+        };
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        getActivity().registerReceiver(broadcastReceiver, intentFilter);
     }
 
     private void showSetPermission() {

@@ -58,7 +58,16 @@ public class Goods_Detail_Bean {
         private int g_id;
         private String g_name;
         private String g_size;
-        private int market_price;
+
+        public int getShop_price() {
+            return shop_price;
+        }
+
+        public void setShop_price(int shop_price) {
+            this.shop_price = shop_price;
+        }
+
+        private int shop_price;
         private String g_component;
         private String g_symptom;
         private String g_usage;
@@ -92,13 +101,6 @@ public class Goods_Detail_Bean {
             this.g_size = g_size;
         }
 
-        public int getMarket_price() {
-            return market_price;
-        }
-
-        public void setMarket_price(int market_price) {
-            this.market_price = market_price;
-        }
 
         public String getG_component() {
             return g_component;

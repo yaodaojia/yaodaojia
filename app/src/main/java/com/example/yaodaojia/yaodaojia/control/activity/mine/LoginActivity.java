@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     String AN = et_password.getText().toString();
                     int length = AN.length();
                     if (length > 0 ) {
-                        bt_login.setBackgroundColor(Color.rgb(251, 203, 61));
+                        bt_login.setBackgroundResource(R.mipmap.mine_setting_pwd_btn);
                     }
                 }
             }

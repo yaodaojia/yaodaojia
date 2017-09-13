@@ -61,6 +61,19 @@
             app:srlAccentColor="@android:color/white"
             app:srlEnableAutoLoadmore="true"
             app:srlEnablePreviewInEditMode="true">
+            <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff">
+                <ImageView
+                    android:id="@+id/iv_donghua"
+                    android:scaleType="centerCrop"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:src="@drawable/anim"/>
+            </com.scwang.smartrefresh.layout.header.ClassicsHeader>
             <ListView
                 android:id="@+id/subListView"
                 android:layout_width="fill_parent"

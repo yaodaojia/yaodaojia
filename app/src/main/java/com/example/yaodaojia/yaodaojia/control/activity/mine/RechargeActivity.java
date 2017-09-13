@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -35,11 +36,12 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /*
 * 充值界面
 * */
-public class RechargeActivity extends AppCompatActivity implements IWXAPIEventHandler, View.OnClickListener {
+public class RechargeActivity extends AppCompatActivity implements IWXAPIEventHandler {
     /**
      * 支付宝支付业务：入参app_id
      */
@@ -69,6 +71,10 @@ public class RechargeActivity extends AppCompatActivity implements IWXAPIEventHa
     private static final int SDK_AUTH_FLAG = 2;
     @BindView(R.id.radioGroup)
     RadioGroup radioGroup;
+    @BindView(R.id.iv_recharge_bak)
+    ImageView ivRechargeBak;
+    @BindView(R.id.bt_zhifu)
+    Button btZhifu;
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -128,6 +134,8 @@ public class RechargeActivity extends AppCompatActivity implements IWXAPIEventHa
     private PayReq req;
     private IWXAPI api;
     private ImageView back;
+    private Button bt_play;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,14 +146,11 @@ public class RechargeActivity extends AppCompatActivity implements IWXAPIEventHa
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
         api.handleIntent(getIntent(), this);
         back = (ImageView) findViewById(R.id.iv_recharge_bak);
+        bt_play = (Button) findViewById(R.id.bt_zhifu);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-                if (i == R.id.rb_zhifubao) {
-                    pay();
-                } else if (i == R.id.rb_weixin) {
-                    sendPayReq();
-                }
+                id = radioGroup.getCheckedRadioButtonId();
             }
         });
     }
@@ -249,15 +254,18 @@ public class RechargeActivity extends AppCompatActivity implements IWXAPIEventHa
         String version = payTask.getVersion();
         Toast.makeText(this, version, Toast.LENGTH_SHORT).show();
     }
-
-    @Override
-    public void onClick(View view) {
+    @OnClick({R.id.iv_recharge_bak, R.id.bt_zhifu})
+    public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_recharge_bak:
                 RechargeActivity.this.finish();
                 break;
-            case R.id.btn_to_weixin:
-                sendPayReq();
+            case R.id.bt_zhifu:
+                if (id == R.id.rb_zhifubao) {
+                    pay();
+                } else if (id == R.id.rb_weixin) {
+                    sendPayReq();
+                }
                 break;
         }
     }

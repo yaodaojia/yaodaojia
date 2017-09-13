@@ -1,24 +1,14 @@
 package com.example.yaodaojia.yaodaojia.control.activity.shop_car;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,12 +28,11 @@ import com.alipay.sdk.app.PayTask;
 import com.example.yaodaojia.yaodaojia.R;
 import com.example.yaodaojia.yaodaojia.base.BaseActivity;
 import com.example.yaodaojia.yaodaojia.control.activity.mine.AddressAdministration_goods_Activity;
-import com.example.yaodaojia.yaodaojia.control.activity.mine.RechargeActivity;
 import com.example.yaodaojia.yaodaojia.control.activity.zhifubao.AuthResult;
 import com.example.yaodaojia.yaodaojia.control.activity.zhifubao.PayResult;
 import com.example.yaodaojia.yaodaojia.control.activity.zhifubao.util.OrderInfoUtil2_0;
+import com.example.yaodaojia.yaodaojia.model.http.bean.CarData;
 import com.example.yaodaojia.yaodaojia.util.Constants;
-import com.example.yaodaojia.yaodaojia.util.SDPathUtils;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -51,8 +41,9 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -64,14 +55,12 @@ import butterknife.OnClick;
  */
 
 public class Shopcart_order_confirmation extends BaseActivity implements IWXAPIEventHandler {
-
-
     @BindView(R.id.shopcart_confir_cancel)
     ImageView shopcartConfirCancel;
     @BindView(R.id.tv_new_address)
     TextView tvNewAddress;
     @BindView(R.id.shopcart_confir_address_name)
-    TextView shopcartConfirAddressText;
+    TextView shopcartConfirAddressName;
     @BindView(R.id.shopcart_confir_address)
     LinearLayout shopcartConfirAddress;
     @BindView(R.id.shopcart_confir_time)
@@ -80,20 +69,10 @@ public class Shopcart_order_confirmation extends BaseActivity implements IWXAPIE
     TextView shopcartConfirPayforText;
     @BindView(R.id.shopcart_confir_payfor)
     LinearLayout shopcartConfirPayfor;
-    @BindView(R.id.shopcart_confir_goods_img)
-    ImageView shopcartConfirGoodsImg;
-    @BindView(R.id.shopcart_confir_goods_name)
-    TextView shopcartConfirGoodsName;
-    @BindView(R.id.shopcart_confir_goods_gongxiao)
-    TextView shopcartConfirGoodsGongxiao;
-    @BindView(R.id.shopcart_confir_goods_money)
-    TextView shopcartConfirGoodsMoney;
-    @BindView(R.id.shopcart_confir_goods_count)
-    TextView shopcartConfirGoodsCount;
-    @BindView(R.id.shopcart_confir_goods_item)
-    LinearLayout shopcartConfirGoodsItem;
+    @BindView(R.id.lv_confirmation)
+    ListView lvConfirmation;
     @BindView(R.id.shopcart_confir_goods_send_money)
-    TextView shopcartConfirPeisong;
+    TextView shopcartConfirGoodsSendMoney;
     @BindView(R.id.shopcart_confir_beizhu)
     EditText shopcartConfirBeizhu;
     @BindView(R.id.shopcart_confir_sure)
@@ -180,6 +159,15 @@ public class Shopcart_order_confirmation extends BaseActivity implements IWXAPIE
     //微信
     private PayReq req;
     private IWXAPI api;
+    private List<CarData> listAll;
+    private MyConfirmationAdapter adapter;
+    private String name;
+    private String price;
+    private String num;
+    private String symptom;
+    private List<CarData> list;
+    private String img;
+
     @Override
     public int getLayout() {
         return R.layout.shopcart_order_confirmation;
@@ -187,25 +175,38 @@ public class Shopcart_order_confirmation extends BaseActivity implements IWXAPIE
 
     @Override
     public void initView() {
+        ButterKnife.bind(this);
+        Intent intent = getIntent();
+        name = intent.getStringExtra("goods_name");
+        img = intent.getStringExtra("goods_img");
+        price = intent.getStringExtra("goods_price");
+        num = intent.getStringExtra("goods_num");
+        symptom = intent.getStringExtra("goods_symptom");
         req = new PayReq();
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
         api.handleIntent(getIntent(), this);
-     mShared = getSharedPreferences("order",MODE_PRIVATE);
-        long time=System.currentTimeMillis();
-
-
-        final Calendar mCalendar=Calendar.getInstance();
+        mShared = getSharedPreferences("order", MODE_PRIVATE);
+        long time = System.currentTimeMillis();
+        final Calendar mCalendar = Calendar.getInstance();
         mCalendar.setTimeInMillis(time);
-//        取得小时：
+        // 取得小时：
         int mHour = mCalendar.get(Calendar.HOUR);
-//        取得分钟：
+        // 取得分钟：
         int mMinuts = mCalendar.get(Calendar.MINUTE);
-        shopcartConfirTime.setText((time+(mMinuts+30))+"");
+        shopcartConfirTime.setText((time + (mMinuts + 30)) + "");
     }
 
     @Override
     public void initData() {
-
+        list = new ArrayList<>();
+        CarData data = new CarData();
+        data.setGoodEffect(symptom);
+        data.setGoodImage(img);
+        data.setGoodName(name);
+        data.setGoodNum(num);
+        data.setGoodPrice(price + "");
+        adapter = new MyConfirmationAdapter(getApplication(), list);
+        lvConfirmation.setAdapter(adapter);
     }
 
     @Override
@@ -214,21 +215,18 @@ public class Shopcart_order_confirmation extends BaseActivity implements IWXAPIE
     }
 
 
-    @OnClick({R.id.shopcart_confir_cancel, R.id.shopcart_confir_address, R.id.shopcart_confir_payfor, R.id.shopcart_confir_goods_item, R.id.shopcart_confir_sure})
+    @OnClick({R.id.shopcart_confir_cancel, R.id.shopcart_confir_address, R.id.shopcart_confir_payfor, R.id.shopcart_confir_sure})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.shopcart_confir_cancel:
                 finish();
-
                 break;
             case R.id.shopcart_confir_address:
                 Intent in = new Intent(Shopcart_order_confirmation.this, AddressAdministration_goods_Activity.class);
-                startActivityForResult(in,1);
+                startActivityForResult(in, 1);
                 break;
             case R.id.shopcart_confir_payfor:
-                 showSheetDialog();
-                break;
-            case R.id.shopcart_confir_goods_item:
+                showSheetDialog();
                 break;
             case R.id.shopcart_confir_sure:
                 break;
@@ -238,15 +236,16 @@ public class Shopcart_order_confirmation extends BaseActivity implements IWXAPIE
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==0 && resultCode==RESULT_OK){
+        if (requestCode == 0 && resultCode == RESULT_OK) {
             Bundle bundle = data.getExtras();
-            String text =null;
-            if(bundle!=null)
-                text=bundle.getString("second");
-            Log.d("text",text);
-            shopcartConfirAddressText.setText(text);
+            String text = null;
+            if (bundle != null)
+                text = bundle.getString("second");
+            Log.d("text", text);
+            shopcartConfirPayforText.setText(text);
         }
     }
+
     private void showSheetDialog() {
         View view = LayoutInflater.from(Shopcart_order_confirmation.this).inflate(
                 R.layout.payfor_dialog, null);
@@ -290,7 +289,6 @@ public class Shopcart_order_confirmation extends BaseActivity implements IWXAPIE
             @Override
             public void onClick(View v) {
                 shopcartConfirPayforText.setText("余额支付");
-
                 dialog.dismiss();
             }
         });
@@ -302,12 +300,11 @@ public class Shopcart_order_confirmation extends BaseActivity implements IWXAPIE
             }
         });
     }
+
     /**
      * 支付宝支付业务
-     *
-     *
      */
-    public void zhifubaopay( ) {
+    public void zhifubaopay() {
         if (TextUtils.isEmpty(APPID) || (TextUtils.isEmpty(RSA2_PRIVATE) && TextUtils.isEmpty(RSA_PRIVATE))) {
             new AlertDialog.Builder(this).setTitle("警告").setMessage("需要配置APPID | RSA_PRIVATE")
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -341,7 +338,6 @@ public class Shopcart_order_confirmation extends BaseActivity implements IWXAPIE
                 PayTask alipay = new PayTask(Shopcart_order_confirmation.this);
                 Map<String, String> result = alipay.payV2(orderInfo, true);
                 Log.i("msp", result.toString());
-
                 Message msg = new Message();
                 msg.what = SDK_PAY_FLAG;
                 msg.obj = result;
@@ -352,12 +348,14 @@ public class Shopcart_order_confirmation extends BaseActivity implements IWXAPIE
         Thread payThread = new Thread(payRunnable);
         payThread.start();
     }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
         api.handleIntent(intent, this);
     }
+
     private void sendPayReq() {
         api.registerApp(Constants.APP_ID);
         api.sendReq(req);
@@ -367,6 +365,7 @@ public class Shopcart_order_confirmation extends BaseActivity implements IWXAPIE
     public void onReq(BaseReq baseReq) {
 
     }
+
     @Override
     public void onResp(BaseResp resp) {
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
